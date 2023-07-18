@@ -1,7 +1,6 @@
 package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.model.Country;
-import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.CountryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

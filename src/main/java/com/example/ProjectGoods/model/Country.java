@@ -10,12 +10,16 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name="Countries")
+@Table(name="countries")
 public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "countriesAvailable")
+    private Set<Category> categories = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "country")
@@ -27,19 +31,4 @@ public class Country {
     @Column(name="nameof")
     private String nameof;
 
-    public void addGood(Good goodNew) {
-        goods.add(goodNew);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getNameOf() {
-        return nameof;
-    }
 }

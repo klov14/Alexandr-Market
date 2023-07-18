@@ -3,8 +3,6 @@ package com.example.ProjectGoods.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Optional;
-
 @Data
 @Entity
 @Table(name = "goods1")
@@ -13,9 +11,7 @@ public class Good {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="country_id", referencedColumnName = "id")
-    private Country country;
+
 
     @Column(name="product")
     private String product;
@@ -26,28 +22,11 @@ public class Good {
     @Column(name="weight")
     private double weight;
 
+    @ManyToOne
+    @JoinColumn(name="country_id", referencedColumnName = "id")
+    private Country country;
 
-    public Long getId() {
-        return id;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void assignCountry(Country country){
-        this.country = country;
-    }
+    @ManyToOne
+    @JoinColumn(name="category_id", referencedColumnName = "id")
+    private Category category;
 }

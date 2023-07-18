@@ -32,4 +32,9 @@ public class GoodServiceImpl implements GoodService{
     public void deleteById(Long id) {
         goodRepository.deleteById(id);
     }
+
+    @Override
+    public Good reAssign(Good good) {
+        return goodRepository.save(good);
+    }
 }
