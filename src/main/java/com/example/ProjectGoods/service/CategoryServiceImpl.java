@@ -1,7 +1,10 @@
 package com.example.ProjectGoods.service;
 
 import com.example.ProjectGoods.model.Category;
+import com.example.ProjectGoods.model.Country;
 import com.example.ProjectGoods.repository.CategoryRepository;
+import com.example.ProjectGoods.repository.CountryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,8 @@ import java.util.Optional;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private CountryRepository countryRepository;
     @Override
     public Category createCategory(Category category) {
         return categoryRepository.save(category);
@@ -18,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Optional<Category> getCategoryById(Long id) {
-        return categoryRepository.findById(id);
+        return Optional.ofNullable(categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()));
     }
 
     @Override
@@ -30,4 +35,21 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategoryById(Long id) {
         categoryRepository.deleteById(id);
     }
+
+    @Override
+    public Category updateCategory(Long categoryId, Long countryId) {
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        Optional<Country> country = countryRepository.findById(countryId);
+        if (country.isPresent() && category.isPresent()) {
+            Country countryAssign = country.get();
+            Category category1 = category.get();
+            category1.assignCountryAndCategory(countryAssign);
+            return categoryRepository.save(category1);
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+
 }

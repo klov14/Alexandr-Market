@@ -18,13 +18,7 @@ import java.util.Optional;
 @RequestMapping("/myGoods1")
 public class GoodController {
     @Autowired
-    private GoodRepository goodRepository;
-    @Autowired
     private GoodService goodService;
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private CategoryService categoryService;
 
     @PostMapping
     public Good addGood (@RequestBody Good good) {
@@ -38,7 +32,7 @@ public class GoodController {
 
     @GetMapping("/{id}")
     public Optional<Good> findById(@PathVariable Long id) {
-        return Optional.ofNullable(goodService.getById(id).orElseThrow(() -> new EntityNotFoundException()));
+        return goodService.getById(id);
     }
 
     @DeleteMapping("/{id}")
@@ -48,36 +42,12 @@ public class GoodController {
 
     @PutMapping("/{goodsId}/country/{countryId}")//set good to the country
     Good assignCountryToGood(@PathVariable Long goodsId, @PathVariable Long countryId){
-        Optional<Country> country = countryService.getCountryById(countryId);
-        Optional<Good> good = goodService.getById(goodsId);
-        Good goodNew;
-        Country countryNew;
-        if (good.isPresent() && country.isPresent()) {
-            goodNew = good.get();
-            countryNew = country.get();
-        }
-        else {
-            throw new EntityNotFoundException();
-        }
-        goodNew.setCountry(countryNew);
-        return goodRepository.save(goodNew);
+        return goodService.addCountryToGood(goodsId, countryId);
     }
 
     @PutMapping("/{goodsId}/category/{categoryId}")//set good to the country
     Good assignCategoryToGood(@PathVariable Long goodsId, @PathVariable Long categoryId){
-        Optional<Category> category = categoryService.getCategoryById(categoryId);
-        Optional<Good> good = goodService.getById(goodsId);
-        Good goodNew;
-        Category category1;
-        if (good.isPresent() && category.isPresent()) {
-            goodNew = good.get();
-            category1 = category.get();
-        }
-        else {
-            throw new EntityNotFoundException();
-        }
-        goodNew.setCategory(category1);
-        return goodRepository.save(goodNew);
+        return goodService.addCategoryToGood(goodsId, categoryId);
     }
 }
 

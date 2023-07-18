@@ -2,6 +2,7 @@ package com.example.ProjectGoods.service;
 
 import com.example.ProjectGoods.model.Country;
 import com.example.ProjectGoods.repository.CountryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public Optional<Country> getCountryById(Long id) {
-        return countryRepository.findById(id);
+        return Optional.ofNullable(countryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()));
     }
 
     @Override

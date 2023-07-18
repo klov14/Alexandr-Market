@@ -27,7 +27,7 @@ public class CountryController {
 
     @GetMapping("/{id}")
     public Optional<Country> findById(@PathVariable Long id) {
-        return Optional.ofNullable(countryService.getCountryById(id).orElseThrow(() -> new EntityNotFoundException()));
+        return countryService.getCountryById(id);
     }
 
     @DeleteMapping("/{id}")

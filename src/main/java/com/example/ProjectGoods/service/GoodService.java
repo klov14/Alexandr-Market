@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GoodService {
-    Good reAssign(Good good);
+    Good addCountryToGood(Long goodsId, Long countryId);
+    Good addCategoryToGood(Long goodsId, Long categoryId);
     Good create(Good good);
     Optional<Good> getById(Long id);
     List<Good> listAll();

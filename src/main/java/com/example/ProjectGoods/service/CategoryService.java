@@ -10,4 +10,5 @@ public interface CategoryService {
     Optional<Category> getCategoryById(Long id);
     List<Category> listAllCategory();
     void deleteCategoryById(Long id);
+    Category updateCategory(Long categoryId, Long countryId);
 }
