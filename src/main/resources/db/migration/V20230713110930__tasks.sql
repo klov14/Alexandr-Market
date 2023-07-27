@@ -23,7 +23,6 @@ ALTER TABLE goods1
         FOREIGN KEY (category_id) REFERENCES category (id);
 
 create table countries_available (
-    id BIGSERIAL PRIMARY KEY,
     country_id INTEGER,
     category_id INTEGER
 );

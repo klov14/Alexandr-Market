@@ -1,17 +1,21 @@
 package com.example.ProjectGoods.service;
 
+import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
+import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 @Service
 public class CountryServiceImpl implements CountryService{
     @Autowired
     private CountryRepository countryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public Country createCountry(Country country) {
@@ -32,4 +36,24 @@ public class CountryServiceImpl implements CountryService{
     public void deleteCountryById(Long id) {
         countryRepository.deleteById(id);
     }
+
+    @Override
+    public Set<Category> printAllByCountry(Long countryId) {
+        Optional<Country> countryNew = countryRepository.findById(countryId);
+        if (countryNew.isPresent()) {
+            Country country = countryNew.get();
+            Set<Category> allCountries = new HashSet<>(country.getCategories());
+            return allCountries;
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @Override
+    public Set<Country> findCatgory(Long id){
+        Category category = categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return countryRepository.findCountryByCategories(category);
+    }
+
 }

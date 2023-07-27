@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,7 +21,7 @@ public class Category {
             name = "countries_available",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "country_id"))
-    private Set<Country> countriesAvailable = new HashSet<>();
+    private Set<Country> countriesAvailable;
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")
@@ -34,5 +33,4 @@ public class Category {
     public void assignCountryAndCategory(Country country) {
         countriesAvailable.add(country);
     }
-
 }
