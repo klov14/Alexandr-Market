@@ -1,13 +1,10 @@
 package com.example.ProjectGoods.controller;
 
-import com.example.ProjectGoods.model.Category;
-import com.example.ProjectGoods.model.Country;
+import com.example.ProjectGoods.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
-import com.example.ProjectGoods.repository.GoodRepository;
-import com.example.ProjectGoods.service.CategoryService;
-import com.example.ProjectGoods.service.CountryService;
 import com.example.ProjectGoods.service.GoodService;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.ProjectGoods.service.GoodsToDto;
+import com.example.ProjectGoods.service.GoodsToDtoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +16,8 @@ import java.util.Optional;
 public class GoodController {
     @Autowired
     private GoodService goodService;
+    @Autowired
+    private GoodsToDto goodsToDto;
 
     @PostMapping
     public Good addGood (@RequestBody Good good) {
@@ -48,6 +47,11 @@ public class GoodController {
     @PutMapping("/{goodsId}/category/{categoryId}")//set good to the country
     Good assignCategoryToGood(@PathVariable Long goodsId, @PathVariable Long categoryId){
         return goodService.addCategoryToGood(goodsId, categoryId);
+    }
+
+    @GetMapping("/dto/{id}")//GET dto of the good by ID
+    GoodsDTO getGoodsDto(@PathVariable Long id){
+        return goodsToDto.getGoodsDto(id);
     }
 }
 

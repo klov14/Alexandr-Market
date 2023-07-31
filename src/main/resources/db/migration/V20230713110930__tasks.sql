@@ -11,7 +11,8 @@ create table category (
 CREATE TABLE goods1 (
                        id BIGSERIAL PRIMARY KEY,
                        product TEXT,
-                       price DOUBLE PRECISION,
+                       buying_price DOUBLE PRECISION,
+                       resell_price DOUBLE PRECISION,
                        weight DOUBLE PRECISION,
                        country_id INTEGER,
                        category_id INTEGER);
@@ -23,9 +24,8 @@ ALTER TABLE goods1
         FOREIGN KEY (category_id) REFERENCES category (id);
 
 create table countries_available (
-    id BIGSERIAL PRIMARY KEY,
-    country_id INTEGER,
-    category_id INTEGER
+    country_id BIGSERIAL,
+    category_id BIGSERIAL
 );
 ALTER TABLE countries_available
     ADD CONSTRAINT fk_countries_available

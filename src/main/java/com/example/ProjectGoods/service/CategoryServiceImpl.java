@@ -8,8 +8,11 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
@@ -23,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Optional<Category> getCategoryById(Long id) {
+        Optional<Category> fd = categoryRepository.findById(id);
         return Optional.ofNullable(categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()));
     }
 
@@ -51,5 +55,16 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
-
+    @Override
+    public Set<Country> printAllByCategory(Long categoryId) {
+        Optional<Category> categoryNew = categoryRepository.findById(categoryId);
+        if (categoryNew.isPresent()) {
+            Category category = categoryNew.get();
+            Set<Country> allCountry = new HashSet<>(category.getCountriesAvailable());
+            return allCountry;
+        }
+        else {
+            throw new EntityNotFoundException();
+      }
+    }
 }

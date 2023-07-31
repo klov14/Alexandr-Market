@@ -11,16 +11,18 @@ public class Good {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @Column(name="product")
     private String product;
 
-    @Column(name="price")
-    private double price;
+    @Column(name="buying_price")
+    private double buying;
+
+    @Column(name="resell_price")
+    private double resell;
 
     @Column(name="weight")
     private double weight;
+
 
     @ManyToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")
