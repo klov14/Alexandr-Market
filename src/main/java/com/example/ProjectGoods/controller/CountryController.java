@@ -37,10 +37,12 @@ public class CountryController {
         countryService.deleteCountryById(id);
     }
 
-    @GetMapping("all/{countryId}")//print all categories by country
-    public Set<Category> ff(@PathVariable Long countryId) {
-        return countryService.printAllByCountry(countryId);
-    }
+
+
+//    @GetMapping("all/{countryId}")//print all categories by country
+//    public Set<Category> ff(@PathVariable Long countryId) {
+//        return countryService.printAllByCountry(countryId);
+//    }
 }
 
 

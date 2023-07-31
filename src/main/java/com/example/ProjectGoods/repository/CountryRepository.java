@@ -11,6 +11,6 @@ import java.util.Set;
 @Repository
 @Transactional
 public interface CountryRepository extends JpaRepository<Country, Long> {
-    Set<Country> findCountryByCategories(Category category);
+//    Set<Country> findCountryByCategories(Category category);
 
 }

@@ -11,8 +11,6 @@ public class Good {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @Column(name="product")
     private String product;
 
@@ -21,6 +19,7 @@ public class Good {
 
     @Column(name="weight")
     private double weight;
+
 
     @ManyToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")

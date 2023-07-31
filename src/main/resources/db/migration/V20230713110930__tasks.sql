@@ -23,8 +23,8 @@ ALTER TABLE goods1
         FOREIGN KEY (category_id) REFERENCES category (id);
 
 create table countries_available (
-    country_id INTEGER,
-    category_id INTEGER
+    country_id BIGSERIAL,
+    category_id BIGSERIAL
 );
 ALTER TABLE countries_available
     ADD CONSTRAINT fk_countries_available

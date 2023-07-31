@@ -37,23 +37,23 @@ public class CountryServiceImpl implements CountryService{
         countryRepository.deleteById(id);
     }
 
-    @Override
-    public Set<Category> printAllByCountry(Long countryId) {
-        Optional<Country> countryNew = countryRepository.findById(countryId);
-        if (countryNew.isPresent()) {
-            Country country = countryNew.get();
-            Set<Category> allCountries = new HashSet<>(country.getCategories());
-            return allCountries;
-        }
-        else {
-            throw new EntityNotFoundException();
-        }
-    }
+//    @Override
+//    public Set<Category> printAllByCountry(Long countryId) {
+//        Optional<Country> countryNew = countryRepository.findById(countryId);
+//        if (countryNew.isPresent()) {
+//            Country country = countryNew.get();
+//            Set<Category> allCountries = new HashSet<>(country.getCategories());
+//            return allCountries;
+//        }
+//        else {
+//            throw new EntityNotFoundException();
+//        }
+//    }
 
-    @Override
-    public Set<Country> findCatgory(Long id){
-        Category category = categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return countryRepository.findCountryByCategories(category);
-    }
+//    @Override
+//    public Set<Country> findCategory(Long id){
+//        Category category = categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+//        return countryRepository.findCountryByCategories(category);
+//    }
 
 }

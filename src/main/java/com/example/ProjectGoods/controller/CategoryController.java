@@ -2,7 +2,6 @@ package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
-import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,6 @@ import java.util.Set;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-
 
     @PostMapping
     public Category create(@RequestBody Category category){
@@ -49,4 +47,5 @@ public class CategoryController {
     Set<Country> test(@PathVariable Long categoryId){
         return categoryService.getCategoryById(categoryId).get().getCountriesAvailable();
     }
+
 }

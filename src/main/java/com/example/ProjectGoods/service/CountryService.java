@@ -12,7 +12,6 @@ public interface CountryService {
     Optional<Country> getCountryById(Long id);
     List<Country> listAllCountry();
     void deleteCountryById(Long id);
-    Set<Category> printAllByCountry(Long countryId);
-
-    Set<Country> findCatgory(Long id);
+//    Set<Category> printAllByCountry(Long countryId);
+//    Set<Country> findCategory(Long id);
 }

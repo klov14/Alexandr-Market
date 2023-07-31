@@ -1,6 +1,5 @@
 package com.example.ProjectGoods.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +15,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name_category")
+    private String nameCategory;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "countries_available",
@@ -23,12 +25,8 @@ public class Category {
             inverseJoinColumns = @JoinColumn(name = "country_id"))
     private Set<Country> countriesAvailable;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private Set<Good> goods = new HashSet<>();
-
-    @Column(name = "name_category")
-    private String name_category;
 
     public void assignCountryAndCategory(Country country) {
         countriesAvailable.add(country);
