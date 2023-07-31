@@ -6,11 +6,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 
 @Repository
 @Transactional
-public interface CountryRepository extends JpaRepository<Country, Long> {
-//    Set<Country> findCountryByCategories(Category category);
-
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+    Set<Category> findCategoryByCountriesAvailable(Country country);
 }

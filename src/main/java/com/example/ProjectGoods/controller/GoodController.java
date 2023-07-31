@@ -1,12 +1,10 @@
 package com.example.ProjectGoods.controller;
 
-import com.example.ProjectGoods.model.Country;
+import com.example.ProjectGoods.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
-import com.example.ProjectGoods.repository.CountryRepository;
-import com.example.ProjectGoods.repository.GoodRepository;
-import com.example.ProjectGoods.service.CountryService;
 import com.example.ProjectGoods.service.GoodService;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.ProjectGoods.service.GoodsToDto;
+import com.example.ProjectGoods.service.GoodsToDtoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +15,9 @@ import java.util.Optional;
 @RequestMapping("/myGoods1")
 public class GoodController {
     @Autowired
-    private GoodRepository goodRepository;
-    @Autowired
     private GoodService goodService;
     @Autowired
-    private CountryService countryService;
+    private GoodsToDto goodsToDto;
 
     @PostMapping
     public Good addGood (@RequestBody Good good) {
@@ -35,7 +31,7 @@ public class GoodController {
 
     @GetMapping("/{id}")
     public Optional<Good> findById(@PathVariable Long id) {
-        return Optional.ofNullable(goodService.getById(id).orElseThrow(() -> new EntityNotFoundException()));
+        return goodService.getById(id);
     }
 
     @DeleteMapping("/{id}")
@@ -43,21 +39,19 @@ public class GoodController {
         goodService.deleteById(id);
     }
 
-    @PutMapping("/{goodsId}/country/{countryId}")
+    @PutMapping("/{goodsId}/country/{countryId}")//set good to the country
     Good assignCountryToGood(@PathVariable Long goodsId, @PathVariable Long countryId){
-        Optional<Country> country = countryService.getCountryById(countryId);
-        Optional<Good> good = goodService.getById(goodsId);
-        if (good.isPresent() && country.isPresent()) {
-            good.get();
-            country.get();
+        return goodService.addCountryToGood(goodsId, countryId);
+    }
 
-        }
-        else{
-            throw new EntityNotFoundException();
-        }
-        good.setCountry(country);
-        good.assignCountry(country);
-        return goodRepository.save(good);
+    @PutMapping("/{goodsId}/category/{categoryId}")//set good to the country
+    Good assignCategoryToGood(@PathVariable Long goodsId, @PathVariable Long categoryId){
+        return goodService.addCategoryToGood(goodsId, categoryId);
+    }
+
+    @GetMapping("/dto/{id}")//GET dto of the good by ID
+    GoodsDTO getGoodsDto(@PathVariable Long id){
+        return goodsToDto.getGoodsDto(id);
     }
 }
 

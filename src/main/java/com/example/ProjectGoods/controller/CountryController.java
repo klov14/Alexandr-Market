@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.controller;
 
+import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
-import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.CountryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/myCountries")
@@ -28,13 +29,20 @@ public class CountryController {
 
     @GetMapping("/{id}")
     public Optional<Country> findById(@PathVariable Long id) {
-        return Optional.ofNullable(countryService.getCountryById(id).orElseThrow(() -> new EntityNotFoundException()));
+        return countryService.getCountryById(id);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         countryService.deleteCountryById(id);
     }
+
+
+
+//    @GetMapping("all/{countryId}")//print all categories by country
+//    public Set<Category> ff(@PathVariable Long countryId) {
+//        return countryService.printAllByCountry(countryId);
+//    }
 }
 
 
