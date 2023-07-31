@@ -14,8 +14,11 @@ public class Good {
     @Column(name="product")
     private String product;
 
-    @Column(name="price")
-    private double price;
+    @Column(name="buying_price")
+    private double buying;
+
+    @Column(name="resell_price")
+    private double resell;
 
     @Column(name="weight")
     private double weight;
