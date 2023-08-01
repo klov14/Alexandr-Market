@@ -14,8 +14,6 @@ import java.util.*;
 public class CountryServiceImpl implements CountryService{
     @Autowired
     private CountryRepository countryRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Override
     public Country createCountry(Country country) {
@@ -23,8 +21,8 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public Optional<Country> getCountryById(Long id) {
-        return Optional.ofNullable(countryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()));
+    public Country getCountryById(Long id) {
+        return countryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 
     @Override
@@ -37,23 +35,15 @@ public class CountryServiceImpl implements CountryService{
         countryRepository.deleteById(id);
     }
 
-//    @Override
-//    public Set<Category> printAllByCountry(Long countryId) {
-//        Optional<Country> countryNew = countryRepository.findById(countryId);
-//        if (countryNew.isPresent()) {
-//            Country country = countryNew.get();
-//            Set<Category> allCountries = new HashSet<>(country.getCategories());
-//            return allCountries;
-//        }
-//        else {
-//            throw new EntityNotFoundException();
-//        }
-//    }
-
-//    @Override
-//    public Set<Country> findCategory(Long id){
-//        Category category = categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-//        return countryRepository.findCountryByCategories(category);
-//    }
+    @Override
+    public Set<Category> printAllByCountry(Long countryId) {
+        Optional<Country> countryNew = countryRepository.findById(countryId);
+        if (countryNew.isPresent()) {
+            return countryNew.get().getCategories();
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
+    }
 
 }

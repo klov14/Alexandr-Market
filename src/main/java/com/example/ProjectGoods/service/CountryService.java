@@ -9,9 +9,8 @@ import java.util.Set;
 
 public interface CountryService {
     Country createCountry(Country country);
-    Optional<Country> getCountryById(Long id);
+    Country getCountryById(Long id);
     List<Country> listAllCountry();
     void deleteCountryById(Long id);
-//    Set<Category> printAllByCountry(Long countryId);
-//    Set<Country> findCategory(Long id);
+    Set<Category> printAllByCountry(Long countryId);
 }

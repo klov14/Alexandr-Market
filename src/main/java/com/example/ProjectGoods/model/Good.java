@@ -1,12 +1,16 @@
 package com.example.ProjectGoods.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "goods1")
-public class Good {
+public class Good{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,12 +21,14 @@ public class Good {
     @Column(name="buying_price")
     private double buying;
 
-    @Column(name="resell_price")
+    @Column(name="selling_price")
     private double resell;
+
+//    @Column(name="price")
+//    private double price;
 
     @Column(name="weight")
     private double weight;
-
 
     @ManyToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")
@@ -30,5 +36,5 @@ public class Good {
 
     @ManyToOne
     @JoinColumn(name="category_id", referencedColumnName = "id")
-    private Category category;
+    private Category categoryMapping;
 }

@@ -11,8 +11,7 @@ create table category (
 CREATE TABLE goods1 (
                        id BIGSERIAL PRIMARY KEY,
                        product TEXT,
-                       buying_price DOUBLE PRECISION,
-                       resell_price DOUBLE PRECISION,
+                       price DOUBLE PRECISION,
                        weight DOUBLE PRECISION,
                        country_id INTEGER,
                        category_id INTEGER);

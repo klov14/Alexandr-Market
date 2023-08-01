@@ -25,9 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> getCategoryById(Long id) {
-        Optional<Category> fd = categoryRepository.findById(id);
-        return Optional.ofNullable(categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()));
+    public Category getCategoryById(Long id) {
+        return categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -45,10 +44,8 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Category> category = categoryRepository.findById(categoryId);
         Optional<Country> country = countryRepository.findById(countryId);
         if (country.isPresent() && category.isPresent()) {
-            Country countryAssign = country.get();
-            Category category1 = category.get();
-            category1.assignCountryAndCategory(countryAssign);
-            return categoryRepository.save(category1);
+            category.get().assignCountryAndCategory(country.get());
+            return categoryRepository.save(category.get());
         }
         else {
             throw new EntityNotFoundException();
@@ -59,9 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Set<Country> printAllByCategory(Long categoryId) {
         Optional<Category> categoryNew = categoryRepository.findById(categoryId);
         if (categoryNew.isPresent()) {
-            Category category = categoryNew.get();
-            Set<Country> allCountry = new HashSet<>(category.getCountriesAvailable());
-            return allCountry;
+           return categoryNew.get().getCountriesAvailable();
         }
         else {
             throw new EntityNotFoundException();

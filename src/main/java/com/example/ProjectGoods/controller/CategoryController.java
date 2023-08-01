@@ -26,7 +26,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Category> findCategoryById(@PathVariable Long id){
+    public Category findCategoryById(@PathVariable Long id){
         return  categoryService.getCategoryById(id);
     }
 
@@ -35,17 +35,18 @@ public class CategoryController {
         categoryService.deleteCategoryById(id);
     }
 
-    @PutMapping("/{categoryId}/country/{countryId}")//set category to the country
+    /**
+     * set category to the country
+     * @param categoryId
+     * @param countryId
+     */
+    @PutMapping("/{categoryId}/country/{countryId}")
     Category assignCategoryToCountry(@PathVariable Long categoryId, @PathVariable Long countryId) {
        return categoryService.updateCategory(categoryId, countryId);
     }
     @GetMapping("/all/{categoryId}")
     Set<Country> printAllByCategory(@PathVariable Long categoryId) {
         return categoryService.printAllByCategory(categoryId);
-    }
-    @GetMapping("/test/{categoryId}")
-    Set<Country> test(@PathVariable Long categoryId){
-        return categoryService.getCategoryById(categoryId).get().getCountriesAvailable();
     }
 
 }

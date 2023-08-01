@@ -1,12 +1,16 @@
 package com.example.ProjectGoods.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name="countries")
 public class Country {
@@ -14,13 +18,12 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToMany
-//    private Set<Category> categories;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "countriesAvailable")
+    private Set<Category> categories;
 
     @OneToMany(mappedBy = "country")
     private Set<Good> goods = new HashSet<>();
-
-
 
     @Column(name="code")
     private String code;

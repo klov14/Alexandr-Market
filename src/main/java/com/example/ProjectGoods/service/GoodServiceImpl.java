@@ -65,7 +65,7 @@ public class GoodServiceImpl implements GoodService{
         if (good.isPresent() && category.isPresent()) {
             Good goodNew = good.get();
             Category category1 = category.get();
-            goodNew.setCategory(category1);
+            goodNew.setCategoryMapping(category1);
             return goodRepository.save(goodNew);
         } else {throw new EntityNotFoundException();}
     }
