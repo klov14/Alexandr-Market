@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/my/category")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
