@@ -32,6 +32,7 @@ public class Category {
     private Set<Country> countriesAvailable;
 
     @OneToMany(mappedBy = "categoryMapping")
+    @JsonIgnore
     private Set<Good> goods = new HashSet<>();
 
     public void assignCountryAndCategory(Country country) {

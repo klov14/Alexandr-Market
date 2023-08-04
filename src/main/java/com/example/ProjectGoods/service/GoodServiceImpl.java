@@ -21,6 +21,8 @@ public class GoodServiceImpl implements GoodService{
     private CountryRepository countryRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private GoodsDtoService goodsDtoService;
 
     @Override
     public Good create(Good good) {
@@ -66,6 +68,7 @@ public class GoodServiceImpl implements GoodService{
             Good goodNew = good.get();
             Category category1 = category.get();
             goodNew.setCategoryMapping(category1);
+            goodsDtoService.updatingDateAndUser(goodNew);
             return goodRepository.save(goodNew);
         } else {throw new EntityNotFoundException();}
     }

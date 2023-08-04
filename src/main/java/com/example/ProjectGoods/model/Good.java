@@ -3,6 +3,8 @@ package com.example.ProjectGoods.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Builder
@@ -29,6 +31,18 @@ public class Good{
 
     @Column(name="weight")
     private double weight;
+
+    @Column(name = "created_user")
+    private String createdUser;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @Column(name = "updated_user")
+    private String updatedUser;
+
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
     @ManyToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")
