@@ -7,4 +7,6 @@ public class GoodsDTO {
     private Long id;
     private String product;
     private double resell;
+    private double buying;
+    private double weight;
 }
