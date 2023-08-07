@@ -6,12 +6,11 @@ import com.example.ProjectGoods.service.GoodService;
 import com.example.ProjectGoods.service.GoodsDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/myGoods1")
+@RequestMapping("/goods")
 public class GoodController {
     @Autowired
     private GoodService goodService;
@@ -66,5 +65,10 @@ public class GoodController {
     @GetMapping("/dto/{id}")
     public GoodsDTO getGoodsDto(@PathVariable Long id){
         return goodsDtoService.goodsToDto(id);
+    }
+
+    @PostMapping("/dto")
+    public Good fromDtoToGoods(@RequestBody GoodsDTO goodsDTO){
+        return goodsDtoService.dtoToGoods(goodsDTO);
     }
 }
