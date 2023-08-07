@@ -1,5 +1,6 @@
 package com.example.ProjectGoods.service;
 
+import com.example.ProjectGoods.model.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
 
 import java.util.List;
@@ -12,4 +13,7 @@ public interface GoodService {
     Optional<Good> getById(Long id);
     List<Good> listAll();
     void deleteById(Long id);
+    GoodsDTO goodsToDto(Long goodId);
+    Good dtoToGoods(GoodsDTO goodDto);
+
 }

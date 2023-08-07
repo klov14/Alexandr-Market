@@ -1,24 +1,21 @@
 package com.example.ProjectGoods.controller;
 
-import com.example.ProjectGoods.dto.GoodsDTO;
+import com.example.ProjectGoods.model.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.GoodService;
-import com.example.ProjectGoods.service.GoodsDtoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/goods")
+@AllArgsConstructor
 public class GoodController {
-    @Autowired
     private GoodService goodService;
-    @Autowired
-    private GoodsDtoService goodsDtoService;
     @PostMapping
-    public Good addGood (@RequestBody Good good) {
-        return goodService.create(good);
+    public Good addGood (@RequestBody GoodsDTO goodDto) {
+        return goodService.dtoToGoods(goodDto);
     }
 
     @GetMapping
@@ -64,11 +61,6 @@ public class GoodController {
      */
     @GetMapping("/dto/{id}")
     public GoodsDTO getGoodsDto(@PathVariable Long id){
-        return goodsDtoService.goodsToDto(id);
-    }
-
-    @PostMapping("/dto")
-    public Good fromDtoToGoods(@RequestBody GoodsDTO goodsDTO){
-        return goodsDtoService.dtoToGoods(goodsDTO);
+        return goodService.goodsToDto(id);
     }
 }

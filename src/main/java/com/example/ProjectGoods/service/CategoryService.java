@@ -1,7 +1,6 @@
 package com.example.ProjectGoods.service;
 
-import com.example.ProjectGoods.model.Category;
-import com.example.ProjectGoods.model.Country;
+import com.example.ProjectGoods.model.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +13,6 @@ public interface CategoryService {
     void deleteCategoryById(Long id);
     Category updateCategory(Long categoryId, Long countryId);
     Set<Country> printAllByCategory(Long categoryId);
+    CategoryDto categoryToDto(Long categoryId);
+    Category dtoTo(CategoryDto categoryDto);
 }

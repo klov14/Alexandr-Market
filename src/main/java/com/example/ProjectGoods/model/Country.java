@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,16 +18,29 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "countriesAvailable")
-    private Set<Category> categories;
-
-    @OneToMany(mappedBy = "country")
-    private Set<Good> goods = new HashSet<>();
-
     @Column(name="code")
     private String code;
 
     @Column(name="nameof")
     private String nameOf;
+
+    @Column(name = "created_user")
+    private String createdUser;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @Column(name = "updated_user")
+    private String updatedUser;
+
+    @Column(name = "updated_date")
+    private Date updatedDate;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "countriesAvailable")
+    private Set<Category> categories;
+
+    @OneToMany(mappedBy = "countryMapping")
+    @JsonIgnore
+    private Set<Good> goods = new HashSet<>();
 }

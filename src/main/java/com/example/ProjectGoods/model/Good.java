@@ -26,9 +26,6 @@ public class Good{
     @Column(name="selling_price")
     private double resell;
 
-//    @Column(name="price")
-//    private double price;
-
     @Column(name="weight")
     private double weight;
 
@@ -46,7 +43,7 @@ public class Good{
 
     @ManyToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")
-    private Country country;
+    private Country countryMapping;
 
     @ManyToOne
     @JoinColumn(name="category_id", referencedColumnName = "id")
