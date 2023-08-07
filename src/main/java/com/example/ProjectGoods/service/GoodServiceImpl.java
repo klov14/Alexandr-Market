@@ -7,20 +7,18 @@ import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
 import com.example.ProjectGoods.repository.GoodRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@AllArgsConstructor
 @Service
 public class GoodServiceImpl implements GoodService{
-    @Autowired
     private GoodRepository goodRepository;
-    @Autowired
     private CountryRepository countryRepository;
-    @Autowired
     private CategoryRepository categoryRepository;
+    private GoodsDtoService goodsDtoService;
 
     @Override
     public Good create(Good good) {
@@ -51,6 +49,7 @@ public class GoodServiceImpl implements GoodService{
             Good goodNew = good.get();
             Country countryNew = country.get();
             goodNew.setCountry(countryNew);
+            goodsDtoService.updatingDateAndUser(goodNew);
             return goodRepository.save(goodNew);
         }
         else {
@@ -66,6 +65,7 @@ public class GoodServiceImpl implements GoodService{
             Good goodNew = good.get();
             Category category1 = category.get();
             goodNew.setCategoryMapping(category1);
+            goodsDtoService.updatingDateAndUser(goodNew);
             return goodRepository.save(goodNew);
         } else {throw new EntityNotFoundException();}
     }

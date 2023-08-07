@@ -2,8 +2,8 @@ package com.example.ProjectGoods.authenticationController;
 
 import com.example.ProjectGoods.config.JwtService;
 import com.example.ProjectGoods.repository.UserRepository;
-import com.example.ProjectGoods.userModel.Role;
-import com.example.ProjectGoods.userModel.User;
+import com.example.ProjectGoods.model.Role;
+import com.example.ProjectGoods.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

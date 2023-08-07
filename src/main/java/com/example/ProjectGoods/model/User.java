@@ -1,5 +1,6 @@
-package com.example.ProjectGoods.userModel;
+package com.example.ProjectGoods.model;
 
+import com.example.ProjectGoods.model.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -3,22 +3,19 @@ package com.example.ProjectGoods.controller;
 import com.example.ProjectGoods.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.GoodService;
-import com.example.ProjectGoods.service.GoodsToDto;
-import com.example.ProjectGoods.service.GoodsToDtoImpl;
+import com.example.ProjectGoods.service.GoodsDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/myGoods1")
+@RequestMapping("/goods")
 public class GoodController {
     @Autowired
     private GoodService goodService;
     @Autowired
-    private GoodsToDto goodsToDto;
-
+    private GoodsDtoService goodsDtoService;
     @PostMapping
     public Good addGood (@RequestBody Good good) {
         return goodService.create(good);
@@ -39,19 +36,39 @@ public class GoodController {
         goodService.deleteById(id);
     }
 
-    @PutMapping("/{goodsId}/country/{countryId}")//set good to the country
-    Good assignCountryToGood(@PathVariable Long goodsId, @PathVariable Long countryId){
+    /**
+     * PUT good to the country
+     * @param goodsId
+     * @param countryId
+     * @return
+     */
+    @PutMapping("/{goodsId}/country/{countryId}")
+    public Good assignCountryToGood(@PathVariable Long goodsId, @PathVariable Long countryId){
         return goodService.addCountryToGood(goodsId, countryId);
     }
 
-    @PutMapping("/{goodsId}/category/{categoryId}")//set good to the country
-    Good assignCategoryToGood(@PathVariable Long goodsId, @PathVariable Long categoryId){
+    /**
+     * PUT good to the country
+     * @param goodsId
+     * @param categoryId
+     * @return
+     */
+    @PutMapping("/{goodsId}/category/{categoryId}")
+    public Good assignCategoryToGood(@PathVariable Long goodsId, @PathVariable Long categoryId){
         return goodService.addCategoryToGood(goodsId, categoryId);
     }
 
-    @GetMapping("/dto/{id}")//GET dto of the good by ID
-    GoodsDTO getGoodsDto(@PathVariable Long id){
-        return goodsToDto.getGoodsDto(id);
+    /**
+     * GET dto of the goods by ID
+     * @param id
+     */
+    @GetMapping("/dto/{id}")
+    public GoodsDTO getGoodsDto(@PathVariable Long id){
+        return goodsDtoService.goodsToDto(id);
+    }
+
+    @PostMapping("/dto")
+    public Good fromDtoToGoods(@RequestBody GoodsDTO goodsDTO){
+        return goodsDtoService.dtoToGoods(goodsDTO);
     }
 }
-
