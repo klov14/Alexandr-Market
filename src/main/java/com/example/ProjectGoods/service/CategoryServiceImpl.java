@@ -1,24 +1,21 @@
 package com.example.ProjectGoods.service;
 
-import com.example.ProjectGoods.model.Category;
-import com.example.ProjectGoods.model.Country;
+import com.example.ProjectGoods.authenticationController.AuthController;
+import com.example.ProjectGoods.model.*;
 import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
+import java.util.*;
+@AllArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
     private CountryRepository countryRepository;
+    private AuthController authController;
     @Override
     public Category createCategory(Category category) {
         return categoryRepository.save(category);
@@ -45,6 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Country> country = countryRepository.findById(countryId);
         if (country.isPresent() && category.isPresent()) {
             category.get().assignCountryAndCategory(country.get());
+            updatingDateAndUser(category.get());
             return categoryRepository.save(category.get());
         }
         else {
@@ -61,5 +59,42 @@ public class CategoryServiceImpl implements CategoryService {
         else {
             throw new EntityNotFoundException();
       }
+    }
+
+    @Override
+    public CategoryDto categoryToDto(Long categoryId) {
+        Optional<Category> categoryCheck = categoryRepository.findById(categoryId);
+        if(categoryCheck.isPresent()){
+            Category newCategory = new Category();
+            return mappingEntityToDto(newCategory);
+        }
+        else{
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @Override
+    public Category dtoTo(CategoryDto categoryDto) {
+        return DtoToEntity(categoryDto);
+    }
+
+    private CategoryDto mappingEntityToDto(Category category){
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setNameCategory(category.getNameCategory());
+        return categoryDto;
+    }
+    private Category DtoToEntity(CategoryDto categoryDto){
+        Category categoryNew = new Category();
+        categoryNew.setId(categoryDto.getId());
+        categoryNew.setNameCategory(categoryDto.getNameCategory());
+        categoryNew.setCreatedUser(authController.getUserName());
+        categoryNew.setCreatedDate(new Date(System.currentTimeMillis()));
+        return categoryRepository.save(categoryNew);
+    }
+    public Category updatingDateAndUser(Category category) {
+        category.setUpdatedUser(authController.getUserName());
+        category.setUpdatedDate(new Date(System.currentTimeMillis()));
+        return categoryRepository.save(category);
     }
 }

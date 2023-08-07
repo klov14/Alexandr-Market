@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,17 @@ public class Category {
     @Column(name = "name_category")
     private String nameCategory;
 
+    @Column(name = "created_user")
+    private String createdUser;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @Column(name = "updated_user")
+    private String updatedUser;
+
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
     @ManyToMany
     @JoinTable(

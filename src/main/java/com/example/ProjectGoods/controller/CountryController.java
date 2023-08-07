@@ -2,6 +2,7 @@ package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
+import com.example.ProjectGoods.model.CountryDto;
 import com.example.ProjectGoods.service.CountryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,8 @@ public class CountryController {
     private CountryService countryService;
 
     @PostMapping
-    public Country addCountry (@RequestBody Country country) {
-        return countryService.createCountry(country);
+    public Country addCountry (@RequestBody CountryDto countryDto) {
+        return countryService.dtoToCountry(countryDto);
     }
 
     @GetMapping
@@ -29,8 +30,8 @@ public class CountryController {
     }
 
     @GetMapping("/{id}")
-    public Country findById(@PathVariable Long id) {
-        return countryService.getCountryById(id);
+    public CountryDto findById(@PathVariable Long id) {
+        return countryService.countryToDto(id);
     }
 
     @DeleteMapping("/{id}")
