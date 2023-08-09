@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.model.Category;
-import com.example.ProjectGoods.model.CategoryDto;
+import com.example.ProjectGoods.dto.CategoryDto;
 import com.example.ProjectGoods.model.Country;
 import com.example.ProjectGoods.service.CategoryService;
 import lombok.AllArgsConstructor;

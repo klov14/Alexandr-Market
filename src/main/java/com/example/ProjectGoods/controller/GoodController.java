@@ -1,6 +1,6 @@
 package com.example.ProjectGoods.controller;
 
-import com.example.ProjectGoods.model.GoodsDTO;
+import com.example.ProjectGoods.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.GoodService;
 import lombok.AllArgsConstructor;

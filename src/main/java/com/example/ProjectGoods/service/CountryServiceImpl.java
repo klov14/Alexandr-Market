@@ -1,12 +1,11 @@
 package com.example.ProjectGoods.service;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
+import com.example.ProjectGoods.dto.CountryDto;
 import com.example.ProjectGoods.model.*;
-import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -56,11 +55,6 @@ public class CountryServiceImpl implements CountryService{
         return DtoToEntity(countryDto);
     }
 
-//    public Country updatingDateAndUser(Country country) {
-//        country.setUpdatedUser(authController.getUserName());
-//        country.setUpdatedDate(new Date(System.currentTimeMillis()));
-//        return countryRepository.save(country);
-//    }
     private CountryDto mappingEntityToDto(Country newCountry) {
         CountryDto countryDto = new CountryDto();
         countryDto.setId(newCountry.getId());
