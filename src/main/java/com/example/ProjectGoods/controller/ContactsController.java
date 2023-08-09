@@ -13,9 +13,10 @@ import java.util.Optional;
 public class ContactsController {
     private ContactsService contactsService;
 
-    @PostMapping
-    public ContactNumber addContact(@RequestBody ContactNumber contactNumber){
-        return contactsService.create(contactNumber);
+
+    @PostMapping("/add/{userId}")
+    public void addContact(@RequestBody ContactNumber contactNumber, @PathVariable Long userId){
+        contactsService.create(contactNumber, userId);
     }
 
     @GetMapping("/{id}")

@@ -18,8 +18,15 @@ public class ContactsServiceImpl implements ContactsService{
     private UserRepository userRepository;
 
     @Override
-    public ContactNumber create(ContactNumber contactNumber) {
-        return contactsRepository.save(contactNumber);
+    public void create(ContactNumber contactNumber, Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            contactNumber.setUserMapping(user.get());
+            contactNumber = contactsRepository.save(contactNumber);
+            List<ContactNumber> contacts = user.get().getContactsSet();
+            contacts.add(contactNumber);
+            userRepository.save(user.get());
+        }
     }
 
     @Override

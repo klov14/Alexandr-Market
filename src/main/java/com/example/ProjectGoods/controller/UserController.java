@@ -1,5 +1,6 @@
 package com.example.ProjectGoods.controller;
 
+import com.example.ProjectGoods.dto.ContactNumberDto;
 import com.example.ProjectGoods.model.ContactNumber;
 import com.example.ProjectGoods.model.User;
 import com.example.ProjectGoods.service.UserService;
@@ -31,7 +32,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/all/{id}")
-    public List<ContactNumber> getAllNumbersFromUsersId(@PathVariable Long id){
+    public List<ContactNumberDto> getAllNumbersFromUsersId(@PathVariable Long id){
         return userService.getAllContactsOfUser(id);
     }
 

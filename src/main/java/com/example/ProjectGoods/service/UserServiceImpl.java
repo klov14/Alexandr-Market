@@ -1,5 +1,6 @@
 package com.example.ProjectGoods.service;
 
+import com.example.ProjectGoods.dto.ContactNumberDto;
 import com.example.ProjectGoods.model.ContactNumber;
 import com.example.ProjectGoods.model.DeliveryAddress;
 import com.example.ProjectGoods.model.User;
@@ -30,10 +31,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ContactNumber> getAllContactsOfUser(Long id) {
+    public List<ContactNumberDto> getAllContactsOfUser(Long id) {
         Optional<User> userCheck = userRepository.findById(id);
         if(userCheck.isPresent()){
-            return userCheck.get().getContactsSet();
+//            return userCheck.get().getContactsSet();
+            //todo map to dto list
+            return null;
         }
         else{
             throw new EntityNotFoundException();
