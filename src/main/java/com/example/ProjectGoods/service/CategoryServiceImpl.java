@@ -37,11 +37,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Long categoryId, Long countryId) {
+    public Category assignCategoryToCountry(Long categoryId, Long countryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);
         Optional<Country> country = countryRepository.findById(countryId);
         if (country.isPresent() && category.isPresent()) {
-            category.get().assignCountryAndCategory(country.get());
+            category.get().getCountriesAvailable().add(country.get());
             updatingDateAndUser(category.get());
             return categoryRepository.save(category.get());
         }
@@ -51,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Set<Country> printAllByCategory(Long categoryId) {
+    public Set<Country> getAllCountriesByCategoryId(Long categoryId) {
         Optional<Category> categoryNew = categoryRepository.findById(categoryId);
         if (categoryNew.isPresent()) {
            return categoryNew.get().getCountriesAvailable();

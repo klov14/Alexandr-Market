@@ -3,7 +3,6 @@ package com.example.ProjectGoods.service;
 import com.example.ProjectGoods.model.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public interface CategoryService {
@@ -11,8 +10,8 @@ public interface CategoryService {
     Category getCategoryById(Long id);
     List<Category> listAllCategory();
     void deleteCategoryById(Long id);
-    Category updateCategory(Long categoryId, Long countryId);
-    Set<Country> printAllByCategory(Long categoryId);
+    Category assignCategoryToCountry(Long categoryId, Long countryId);
+    Set<Country> getAllCountriesByCategoryId(Long categoryId);
     CategoryDto categoryToDto(Long categoryId);
     Category dtoTo(CategoryDto categoryDto);
 }

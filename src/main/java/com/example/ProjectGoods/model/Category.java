@@ -1,13 +1,9 @@
 package com.example.ProjectGoods.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,8 +42,4 @@ public class Category {
     @OneToMany(mappedBy = "categoryMapping")
     @JsonIgnore
     private Set<Good> goods = new HashSet<>();
-
-    public void assignCountryAndCategory(Country country) {
-        countriesAvailable.add(country);
-    }
 }
