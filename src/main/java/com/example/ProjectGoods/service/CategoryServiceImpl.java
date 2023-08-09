@@ -1,12 +1,12 @@
 package com.example.ProjectGoods.service;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
+import com.example.ProjectGoods.dto.CategoryDto;
 import com.example.ProjectGoods.model.*;
 import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,15 +16,6 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
     private CountryRepository countryRepository;
     private AuthController authController;
-    @Override
-    public Category createCategory(Category category) {
-        return categoryRepository.save(category);
-    }
-
-    @Override
-    public Category getCategoryById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-    }
 
     @Override
     public List<Category> listAllCategory() {
@@ -97,4 +88,5 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdatedDate(new Date(System.currentTimeMillis()));
         return categoryRepository.save(category);
     }
+
 }

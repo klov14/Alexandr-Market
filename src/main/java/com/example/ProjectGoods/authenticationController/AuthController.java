@@ -30,5 +30,4 @@ public class AuthController {
         String currentPrincipalName = authentication.getName();
         return currentPrincipalName;
     }
-
 }

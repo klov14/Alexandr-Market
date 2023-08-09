@@ -1,6 +1,6 @@
 package com.example.ProjectGoods.model;
 
-import com.example.ProjectGoods.model.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder
@@ -39,6 +38,8 @@ public class User implements UserDetails {
     @Column(name="role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -74,4 +75,15 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @OneToMany(mappedBy = "userMapping")
+    @JsonIgnore
+    private List<ContactNumber> contactsSet = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+                name = "address_available",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "delivery_id"))
+    private Set<DeliveryAddress> addressAvailable;
 }

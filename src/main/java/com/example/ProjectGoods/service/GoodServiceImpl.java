@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.service;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
-import com.example.ProjectGoods.model.GoodsDTO;
+import com.example.ProjectGoods.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
 import com.example.ProjectGoods.model.Good;
@@ -48,11 +48,9 @@ public class GoodServiceImpl implements GoodService{
         Optional<Country> country = countryRepository.findById(countryId);
         Optional<Good> good = goodRepository.findById(goodsId);
         if (good.isPresent() && country.isPresent()) {
-            Good goodNew = good.get();
-            Country countryNew = country.get();
-            goodNew.setCountryMapping(countryNew);
-            updatingDateAndUser(goodNew);
-            return goodRepository.save(goodNew);
+            good.get().setCountryMapping(country.get());
+            updatingDateAndUser(good.get());
+            return goodRepository.save(good.get());
         }
         else {
             throw new EntityNotFoundException();
