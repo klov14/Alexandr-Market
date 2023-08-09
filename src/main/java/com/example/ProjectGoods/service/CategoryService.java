@@ -9,8 +9,8 @@ import java.util.Set;
 public interface CategoryService {
     List<Category> listAllCategory();
     void deleteCategoryById(Long id);
-    Category updateCategory(Long categoryId, Long countryId);
-    Set<Country> printAllByCategory(Long categoryId);
+    Category assignCategoryToCountry(Long categoryId, Long countryId);
+    Set<Country> getAllCountriesByCategoryId(Long categoryId);
     CategoryDto categoryToDto(Long categoryId);
     Category dtoTo(CategoryDto categoryDto);
 }

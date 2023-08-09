@@ -42,11 +42,16 @@ public class CategoryController {
      */
     @PutMapping("/{categoryId}/country/{countryId}")
     Category assignCategoryToCountry(@PathVariable Long categoryId, @PathVariable Long countryId) {
-       return categoryService.updateCategory(categoryId, countryId);
+       return categoryService.assignCategoryToCountry(categoryId, countryId);
     }
 
+    /**
+     * GET all countries that are assigned to the Category
+     * @param categoryId
+     * @return
+     */
     @GetMapping("/all/{categoryId}")
-    Set<Country> printAllByCategory(@PathVariable Long categoryId) {
-        return categoryService.printAllByCategory(categoryId);
+    Set<Country> getAllCountriesByCategoryId(@PathVariable Long categoryId) {
+        return categoryService.getAllCountriesByCategoryId(categoryId);
     }
 }
