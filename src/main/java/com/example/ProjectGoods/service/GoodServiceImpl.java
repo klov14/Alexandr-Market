@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,20 +23,10 @@ public class GoodServiceImpl implements GoodService{
     private CountryRepository countryRepository;
     private CategoryRepository categoryRepository;
     private AuthController authController;
-    @Override
-    public Good create(Good good) {
-        return goodRepository.save(good);
-    }
 
     @Override
-    public Optional<Good> getById(Long id) {
-        return Optional.ofNullable(goodRepository.findById(id).orElseThrow(() -> new EntityNotFoundException()));
-    }
-
-
-    @Override
-    public List<Good> listAll() {
-        return goodRepository.findAll();
+    public List<GoodsDTO> listAll() {
+        return mappingEntityToDtoList(goodRepository.findAll());
     }
 
     @Override
@@ -70,15 +61,11 @@ public class GoodServiceImpl implements GoodService{
         } else {throw new EntityNotFoundException();}
     }
 
-
-
-
-    //DEALING WITH DTO!
     @Override
-    public GoodsDTO goodsToDto(Long goodId) {
+    public GoodsDTO getById(Long goodId) {
         Optional<Good> goodCheck = goodRepository.findById(goodId);
         if(goodCheck.isPresent()){
-            Good newGood = new Good();
+            Good newGood = goodCheck.get();
             return mappingEntityToDto(newGood);
         }
         else{
@@ -86,11 +73,35 @@ public class GoodServiceImpl implements GoodService{
         }
     }
     @Override
-    public Good dtoToGoods(GoodsDTO goodDto) {
-        return DtoToEntity(goodDto);
+    public Good createGood(GoodsDTO goodDto) {
+        Good goodCreated = mappingDtoToEntity(goodDto);
+        goodCreated.setCreatedUser(authController.getUserName());
+        goodCreated.setCreatedDate(new Date(System.currentTimeMillis()));
+        return goodRepository.save(goodCreated);
     }
 
-    public Good updatingDateAndUser(Good good) {
+    @Override
+    public Good update(GoodsDTO goodsDTO) {
+        Good good = mappingDtoToEntity(goodsDTO);
+        Optional<Good> oldGood= goodRepository.findById(good.getId());
+        if(oldGood.isPresent()){
+            good.setCreatedUser(oldGood.get().getCreatedUser());
+            good.setCreatedDate(oldGood.get().getCreatedDate());
+            updatingDateAndUser(good);
+            return goodRepository.save(good);
+        }
+        else{
+            throw new EntityNotFoundException();
+        }
+
+    }
+
+
+
+
+
+    //DEALING WITH DTO!
+    private Good updatingDateAndUser(Good good) {
         good.setUpdatedUser(authController.getUserName());
         good.setUpdatedDate(new Date(System.currentTimeMillis()));
         return goodRepository.save(good);
@@ -106,15 +117,28 @@ public class GoodServiceImpl implements GoodService{
         return goodsDTO;
     }
 
-    private Good DtoToEntity(GoodsDTO goodDto){
+    private Good mappingDtoToEntity(GoodsDTO goodDto){
         Good goodsNew = new Good();
         goodsNew.setId(goodDto.getId());
         goodsNew.setResell(goodDto.getResell());
         goodsNew.setProduct(goodDto.getProduct());
         goodsNew.setWeight(goodDto.getWeight());
         goodsNew.setBuying(goodDto.getBuying());
-        goodsNew.setCreatedUser(authController.getUserName());
-        goodsNew.setCreatedDate(new Date(System.currentTimeMillis()));
-        return goodRepository.save(goodsNew);
+        return goodsNew;
+    }
+
+    /**
+     * Mapping LIST from Entity to Dto!!!
+     * @param good
+     * @return
+     */
+    private List<GoodsDTO> mappingEntityToDtoList(List<Good> good){
+        List<GoodsDTO> printedList = new ArrayList<>();
+        int i = 0;
+        while(i < good.size()){
+            printedList.add(mappingEntityToDto(good.get(i)));
+            i++;
+        }
+        return printedList;
     }
 }

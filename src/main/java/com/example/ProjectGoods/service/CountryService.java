@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 public interface CountryService {
-    List<Country> listAllCountry();
+    List<CountryDto> listAllCountry();
     void deleteCountryById(Long id);
     Set<Category> printAllByCountry(Long countryId);
-    CountryDto countryToDto(Long countryId);
-    Country dtoToCountry(CountryDto countryDto);
+    CountryDto getById(Long countryId);
+    Country create(CountryDto countryDto);
+    Country update(CountryDto countryDto);
 }

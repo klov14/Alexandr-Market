@@ -31,7 +31,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/all/{id}")
-    public List<ContactNumber> getAllNumbers(@PathVariable Long id){
+    public List<ContactNumber> getAllNumbersFromUsersId(@PathVariable Long id){
         return userService.getAllContactsOfUser(id);
     }
 

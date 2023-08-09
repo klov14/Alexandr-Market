@@ -29,7 +29,7 @@ public class ContactsController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void deleteById(@PathVariable Long id){
         contactsService.deleteContactsById(id);
     }
 

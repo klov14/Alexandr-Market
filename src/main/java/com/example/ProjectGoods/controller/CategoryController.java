@@ -17,17 +17,20 @@ public class CategoryController {
 
     @PostMapping
     public Category create(@RequestBody CategoryDto categoryDto){
-        return categoryService.dtoTo(categoryDto);
+        return categoryService.create(categoryDto);
     }
-
+    @PostMapping("/update")
+    public Category update(@RequestBody CategoryDto categoryNew){
+        return categoryService.update(categoryNew);
+    }
     @GetMapping
-    public List<Category> findAllCategory() {
+    public List<CategoryDto> findAllCategory() {
         return categoryService.listAllCategory();
     }
 
     @GetMapping("/{id}")
     public CategoryDto findCategoryById(@PathVariable Long id){
-        return  categoryService.categoryToDto(id);
+        return  categoryService.getCategoryById(id);
     }
 
     @DeleteMapping("/{id}")

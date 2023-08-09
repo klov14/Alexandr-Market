@@ -18,8 +18,8 @@ public class CategoryServiceImpl implements CategoryService {
     private AuthController authController;
 
     @Override
-    public List<Category> listAllCategory() {
-        return categoryRepository.findAll();
+    public List<CategoryDto> listAllCategory() {
+        return mappingEntityToDtoList(categoryRepository.findAll());
     }
 
     @Override
@@ -53,10 +53,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto categoryToDto(Long categoryId) {
+    public CategoryDto getCategoryById(Long categoryId) {
         Optional<Category> categoryCheck = categoryRepository.findById(categoryId);
         if(categoryCheck.isPresent()){
-            Category newCategory = new Category();
+            Category newCategory = categoryCheck.get();
             return mappingEntityToDto(newCategory);
         }
         else{
@@ -65,8 +65,26 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category dtoTo(CategoryDto categoryDto) {
-        return DtoToEntity(categoryDto);
+    public Category create(CategoryDto categoryDto) {
+        Category category = mappingDtoToEntity(categoryDto);
+        category.setCreatedUser(authController.getUserName());
+        category.setCreatedDate(new Date(System.currentTimeMillis()));
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public Category update(CategoryDto categoryDto) {
+        Category category = mappingDtoToEntity(categoryDto);
+        Optional<Category> oldCategory = categoryRepository.findById(category.getId());
+        if (oldCategory.isPresent()) {
+            category.setCreatedUser(oldCategory.get().getCreatedUser());
+            category.setCreatedDate(oldCategory.get().getCreatedDate());
+            updatingDateAndUser(category);
+            return categoryRepository.save(category);
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
     }
 
     private CategoryDto mappingEntityToDto(Category category){
@@ -75,18 +93,24 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDto.setNameCategory(category.getNameCategory());
         return categoryDto;
     }
-    private Category DtoToEntity(CategoryDto categoryDto){
+    private Category mappingDtoToEntity(CategoryDto categoryDto){
         Category categoryNew = new Category();
         categoryNew.setId(categoryDto.getId());
         categoryNew.setNameCategory(categoryDto.getNameCategory());
-        categoryNew.setCreatedUser(authController.getUserName());
-        categoryNew.setCreatedDate(new Date(System.currentTimeMillis()));
-        return categoryRepository.save(categoryNew);
+        return categoryNew;
     }
-    public Category updatingDateAndUser(Category category) {
+    private List<CategoryDto> mappingEntityToDtoList(List<Category> category){
+        List<CategoryDto> printedList = new ArrayList<>();
+        int i = 0;
+        while(i < category.size()){
+            printedList.add(mappingEntityToDto(category.get(i)));
+            i++;
+        }
+        return printedList;
+    }
+    private Category updatingDateAndUser(Category category) {
         category.setUpdatedUser(authController.getUserName());
         category.setUpdatedDate(new Date(System.currentTimeMillis()));
         return categoryRepository.save(category);
     }
-
 }
