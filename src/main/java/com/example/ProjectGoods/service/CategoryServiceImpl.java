@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Category> category = categoryRepository.findById(categoryId);
         Optional<Country> country = countryRepository.findById(countryId);
         if (country.isPresent() && category.isPresent()) {
-            category.get().assignCountryAndCategory(country.get());
+            category.get().getCountriesAvailable().add(country.get());
             updatingDateAndUser(category.get());
             return categoryRepository.save(category.get());
         }

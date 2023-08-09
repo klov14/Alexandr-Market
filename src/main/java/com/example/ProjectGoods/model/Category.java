@@ -47,7 +47,4 @@ public class Category {
     @JsonIgnore
     private Set<Good> goods = new HashSet<>();
 
-    public void assignCountryAndCategory(Country country) {
-        countriesAvailable.add(country);
-    }
 }
