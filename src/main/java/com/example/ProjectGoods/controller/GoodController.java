@@ -4,15 +4,15 @@ import com.example.ProjectGoods.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.GoodService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/goods")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GoodController {
-    private GoodService goodService;
-
+    private final GoodService goodService;
     @PostMapping
     public Good createGood(@RequestBody GoodsDTO goodDto) {
         return goodService.createGood(goodDto);
