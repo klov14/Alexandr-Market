@@ -1,6 +1,8 @@
 package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.dto.ContactNumberDto;
+import com.example.ProjectGoods.dto.UserDto;
+import com.example.ProjectGoods.dto.UserDto2;
 import com.example.ProjectGoods.model.ContactNumber;
 import com.example.ProjectGoods.model.User;
 import com.example.ProjectGoods.service.UserService;
@@ -17,17 +19,27 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public Optional<User> getById(@PathVariable Long id){
+    public UserDto getById(@PathVariable Long id){
         return userService.getById(id);
     }
 
     @GetMapping
-    public List<User> listAll(){
+    public List<UserDto> listAll(){
         return userService.getUsers();
     }
 
     /**
-     * GET all contacts information by id of the user
+     * GET userDTO with an address by userId
+     * @param userId
+     * @return
+     */
+    @GetMapping("/get-address/{userId}")
+    public UserDto2 printUserDtoWithAddress(@PathVariable Long userId){
+        return userService.printUserDtoWithAddress(userId);
+    }
+
+    /**
+     * GET all contactsDTO information by id of the user
      * @param id
      * @return
      */

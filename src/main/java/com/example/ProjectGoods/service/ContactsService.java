@@ -9,6 +9,6 @@ public interface ContactsService {
     void create(ContactNumber contactNumber, Long userId);
     List<ContactNumber> listAllContacts();
     void deleteContactsById(Long id);
-    ContactNumber assignUserToContacts(Long contactsId, Long userId);
+//    ContactNumber assignUserToContacts(Long contactsId, Long userId);
     Optional<ContactNumber> getById(Long id);
 }

@@ -39,19 +39,19 @@ public class ContactsServiceImpl implements ContactsService{
         contactsRepository.deleteById(id);
     }
 
-    @Override
-    public ContactNumber assignUserToContacts(Long contactsId, Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        Optional<ContactNumber> contacts = contactsRepository.findById(contactsId);
-        if (contacts.isPresent() && user.isPresent()) {
-            contacts.get().setUserMapping(user.get());
-            user.get().getContactsSet().add(contacts.get());
-            return contactsRepository.save(contacts.get());
-        }
-        else {
-            throw new EntityNotFoundException();
-        }
-    }
+//    @Override
+//    public ContactNumber assignUserToContacts(Long contactsId, Long userId) {
+//        Optional<User> user = userRepository.findById(userId);
+//        Optional<ContactNumber> contacts = contactsRepository.findById(contactsId);
+//        if (contacts.isPresent() && user.isPresent()) {
+//            contacts.get().setUserMapping(user.get());
+//            user.get().getContactsSet().add(contacts.get());
+//            return contactsRepository.save(contacts.get());
+//        }
+//        else {
+//            throw new EntityNotFoundException();
+//        }
+//    }
 
     @Override
     public Optional<ContactNumber> getById(Long id) {

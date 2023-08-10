@@ -34,9 +34,9 @@ public class ContactsController {
         contactsService.deleteContactsById(id);
     }
 
-    @PutMapping("/{contactId}/user/{userId}")
-    public ContactNumber assignUserToContacts(@PathVariable Long contactId,
-                                              @PathVariable Long userId) {
-        return contactsService.assignUserToContacts(contactId, userId);
-    }
+//    @PutMapping("/{contactId}/user/{userId}")
+//    public ContactNumber assignUserToContacts(@PathVariable Long contactId,
+//                                              @PathVariable Long userId) {
+//        return contactsService.assignUserToContacts(contactId, userId);
+//    }
 }
