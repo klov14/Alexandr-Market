@@ -14,7 +14,7 @@ public class ContactsController {
     private ContactsService contactsService;
 
 
-    @PostMapping("/add/{userId}")
+    @PostMapping("/add-to-user/{userId}")
     public void addContact(@RequestBody ContactNumber contactNumber, @PathVariable Long userId){
         contactsService.create(contactNumber, userId);
     }
