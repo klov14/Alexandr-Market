@@ -1,10 +1,11 @@
-package com.example.ProjectGoods.service;
+package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
-import com.example.ProjectGoods.dto.CategoryDto;
+import com.example.ProjectGoods.dto.CategoryDTO;
 import com.example.ProjectGoods.model.*;
 import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
+import com.example.ProjectGoods.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     private AuthController authController;
 
     @Override
-    public List<CategoryDto> listAllCategory() {
+    public List<CategoryDTO> listAllCategory() {
         return mappingEntityToDtoList(categoryRepository.findAll());
     }
 
@@ -53,7 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto getCategoryById(Long categoryId) {
+    public CategoryDTO getCategoryById(Long categoryId) {
         Optional<Category> categoryCheck = categoryRepository.findById(categoryId);
         if(categoryCheck.isPresent()){
             Category newCategory = categoryCheck.get();
@@ -65,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(CategoryDto categoryDto) {
+    public Category create(CategoryDTO categoryDto) {
         Category category = mappingDtoToEntity(categoryDto);
         category.setCreatedUser(authController.getUserName());
         category.setCreatedDate(new Date(System.currentTimeMillis()));
@@ -73,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(CategoryDto categoryDto) {
+    public Category update(CategoryDTO categoryDto) {
         Category category = mappingDtoToEntity(categoryDto);
         Optional<Category> oldCategory = categoryRepository.findById(category.getId());
         if (oldCategory.isPresent()) {
@@ -87,20 +88,20 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
-    private CategoryDto mappingEntityToDto(Category category){
-        CategoryDto categoryDto = new CategoryDto();
+    private CategoryDTO mappingEntityToDto(Category category){
+        CategoryDTO categoryDto = new CategoryDTO();
         categoryDto.setId(category.getId());
         categoryDto.setNameCategory(category.getNameCategory());
         return categoryDto;
     }
-    private Category mappingDtoToEntity(CategoryDto categoryDto){
+    private Category mappingDtoToEntity(CategoryDTO categoryDto){
         Category categoryNew = new Category();
         categoryNew.setId(categoryDto.getId());
         categoryNew.setNameCategory(categoryDto.getNameCategory());
         return categoryNew;
     }
-    private List<CategoryDto> mappingEntityToDtoList(List<Category> category){
-        List<CategoryDto> printedList = new ArrayList<>();
+    private List<CategoryDTO> mappingEntityToDtoList(List<Category> category){
+        List<CategoryDTO> printedList = new ArrayList<>();
         int i = 0;
         while(i < category.size()){
             printedList.add(mappingEntityToDto(category.get(i)));

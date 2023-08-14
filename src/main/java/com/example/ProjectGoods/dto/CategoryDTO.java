@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CountryDto {
+public class CategoryDTO {
     private Long id;
-    private String code;
-    private String nameOf;
+    private String nameCategory;
 }

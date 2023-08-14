@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ContactNumberDto {
-    Long id;
-    String mobile;
-    String telephone;
+@NoArgsConstructor
+public class CountryDTO {
+    private Long id;
+    private String code;
+    private String nameOf;
 }

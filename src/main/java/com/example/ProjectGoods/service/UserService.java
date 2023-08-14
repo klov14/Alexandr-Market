@@ -1,18 +1,16 @@
 package com.example.ProjectGoods.service;
 
-import com.example.ProjectGoods.dto.ContactNumberDto;
-import com.example.ProjectGoods.dto.UserDto;
-import com.example.ProjectGoods.dto.UserDto2;
-import com.example.ProjectGoods.model.ContactNumber;
+import com.example.ProjectGoods.dto.ContactNumberDTO;
+import com.example.ProjectGoods.dto.UserDTO;
+import com.example.ProjectGoods.model.DeliveryAddress;
 import com.example.ProjectGoods.model.User;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 public interface UserService {
-    UserDto getById(Long id);
-    List<UserDto> getUsers();
-    List<ContactNumberDto> getAllContactsOfUser(Long id);
+    UserDTO getById(Long id);
+    List<UserDTO> getUsers();
+    List<ContactNumberDTO> getAllContactsOfUser(Long id);
     User assignAddressToUser(Long addressId, Long userId);
-
-    UserDto2 printUserDtoWithAddress(Long userid);
+    Set<DeliveryAddress> getAddressByUserId(Long userid);
 }

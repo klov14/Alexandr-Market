@@ -1,16 +1,15 @@
 package com.example.ProjectGoods.controller;
 
-import com.example.ProjectGoods.dto.ContactNumberDto;
-import com.example.ProjectGoods.dto.UserDto;
-import com.example.ProjectGoods.dto.UserDto2;
-import com.example.ProjectGoods.model.ContactNumber;
+import com.example.ProjectGoods.dto.ContactNumberDTO;
+import com.example.ProjectGoods.dto.UserDTO;
+import com.example.ProjectGoods.model.DeliveryAddress;
 import com.example.ProjectGoods.model.User;
 import com.example.ProjectGoods.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -19,12 +18,12 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public UserDto getById(@PathVariable Long id){
+    public UserDTO getById(@PathVariable Long id){
         return userService.getById(id);
     }
 
     @GetMapping
-    public List<UserDto> listAll(){
+    public List<UserDTO> listAll(){
         return userService.getUsers();
     }
 
@@ -34,8 +33,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/get-address/{userId}")
-    public UserDto2 printUserDtoWithAddress(@PathVariable Long userId){
-        return userService.printUserDtoWithAddress(userId);
+    public Set<DeliveryAddress> printUserDtoWithAddress(@PathVariable Long userId){
+        return userService.getAddressByUserId(userId);
     }
 
     /**
@@ -43,8 +42,8 @@ public class UserController {
      * @param id
      * @return
      */
-    @GetMapping("/all/{id}")
-    public List<ContactNumberDto> getAllNumbersFromUsersId(@PathVariable Long id){
+    @GetMapping("/get-contacts/{id}")
+    public List<ContactNumberDTO> getAllNumbersFromUsersId(@PathVariable Long id){
         return userService.getAllContactsOfUser(id);
     }
 

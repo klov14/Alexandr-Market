@@ -2,7 +2,7 @@ package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
-import com.example.ProjectGoods.dto.CountryDto;
+import com.example.ProjectGoods.dto.CountryDTO;
 import com.example.ProjectGoods.service.CountryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +17,19 @@ public class CountryController {
     private CountryService countryService;
 
     @PostMapping
-    public Country addCountry (@RequestBody CountryDto countryDto) {
+    public Country addCountry (@RequestBody CountryDTO countryDto) {
         return countryService.create(countryDto);
     }
     @PostMapping("/update")
-    public Country update(@RequestBody CountryDto countryDto){
+    public Country update(@RequestBody CountryDTO countryDto){
         return countryService.update(countryDto);
     }
     @GetMapping("/{id}")
-    public CountryDto findById(@PathVariable Long id) {
+    public CountryDTO findById(@PathVariable Long id) {
         return countryService.getById(id);
     }
     @GetMapping
-    public List<CountryDto> getListCountries (){
+    public List<CountryDTO> getListCountries (){
         return countryService.listAllCountry();
     }
     @DeleteMapping("/{id}")

@@ -1,9 +1,10 @@
-package com.example.ProjectGoods.service;
+package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
-import com.example.ProjectGoods.dto.CountryDto;
+import com.example.ProjectGoods.dto.CountryDTO;
 import com.example.ProjectGoods.model.*;
 import com.example.ProjectGoods.repository.CountryRepository;
+import com.example.ProjectGoods.service.CountryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,11 @@ import java.util.*;
 
 @Service
 @AllArgsConstructor
-public class CountryServiceImpl implements CountryService{
+public class CountryServiceImpl implements CountryService {
     private CountryRepository countryRepository;
     private AuthController authController;
     @Override
-    public CountryDto getById(Long countryId) {
+    public CountryDTO getById(Long countryId) {
         Optional<Country> countryCheck = countryRepository.findById(countryId);
         if(countryCheck.isPresent()){
             Country newCountry = countryCheck.get();
@@ -26,7 +27,7 @@ public class CountryServiceImpl implements CountryService{
         }
     }
     @Override
-    public List<CountryDto> listAllCountry() {
+    public List<CountryDTO> listAllCountry() {
         return mappingEntityToDtoList(countryRepository.findAll());
     }
 
@@ -46,7 +47,7 @@ public class CountryServiceImpl implements CountryService{
         }
     }
     @Override
-    public Country create(CountryDto countryDto) {
+    public Country create(CountryDTO countryDto) {
         Country country = mappingDtoToEntity(countryDto);
         country.setCreatedUser(authController.getUserName());
         country.setCreatedDate(new Date(System.currentTimeMillis()));
@@ -54,7 +55,7 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public Country update(CountryDto countryDto) {
+    public Country update(CountryDTO countryDto) {
         Country country = mappingDtoToEntity(countryDto);
         Optional<Country> oldCountry = countryRepository.findById(country.getId());
         if(oldCountry.isPresent()){
@@ -69,15 +70,15 @@ public class CountryServiceImpl implements CountryService{
         }
     }
 
-    private CountryDto mappingEntityToDto(Country newCountry) {
-        CountryDto countryDto = new CountryDto();
+    private CountryDTO mappingEntityToDto(Country newCountry) {
+        CountryDTO countryDto = new CountryDTO();
         countryDto.setId(newCountry.getId());
         countryDto.setCode(newCountry.getCode());
         countryDto.setNameOf(newCountry.getNameOf());
         return countryDto;
     }
-    private List<CountryDto> mappingEntityToDtoList(List<Country> newCountry){
-        List<CountryDto> printedList = new ArrayList<>();
+    private List<CountryDTO> mappingEntityToDtoList(List<Country> newCountry){
+        List<CountryDTO> printedList = new ArrayList<>();
         int i = 0;
         while(i < newCountry.size()){
             printedList.add(mappingEntityToDto(newCountry.get(i)));
@@ -85,7 +86,7 @@ public class CountryServiceImpl implements CountryService{
         }
         return printedList;
     }
-    private Country mappingDtoToEntity(CountryDto countryDto){
+    private Country mappingDtoToEntity(CountryDTO countryDto){
         Country countryNew = new Country();
         countryNew.setId(countryDto.getId());
         countryNew.setCode(countryDto.getCode());

@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.model.Category;
-import com.example.ProjectGoods.dto.CategoryDto;
+import com.example.ProjectGoods.dto.CategoryDTO;
 import com.example.ProjectGoods.model.Country;
 import com.example.ProjectGoods.service.CategoryService;
 import lombok.AllArgsConstructor;
@@ -16,20 +16,20 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public Category create(@RequestBody CategoryDto categoryDto){
+    public Category create(@RequestBody CategoryDTO categoryDto){
         return categoryService.create(categoryDto);
     }
     @PostMapping("/update")
-    public Category update(@RequestBody CategoryDto categoryNew){
+    public Category update(@RequestBody CategoryDTO categoryNew){
         return categoryService.update(categoryNew);
     }
     @GetMapping
-    public List<CategoryDto> findAllCategory() {
+    public List<CategoryDTO> findAllCategory() {
         return categoryService.listAllCategory();
     }
 
     @GetMapping("/{id}")
-    public CategoryDto findCategoryById(@PathVariable Long id){
+    public CategoryDTO findCategoryById(@PathVariable Long id){
         return  categoryService.getCategoryById(id);
     }
 

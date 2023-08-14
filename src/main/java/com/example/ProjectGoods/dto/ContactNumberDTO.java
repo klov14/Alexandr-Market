@@ -7,9 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
-    private Long id;
-    private String nameCategory;
+@AllArgsConstructor
+public class ContactNumberDTO {
+    Long id;
+    String mobile;
+    String telephone;
 }

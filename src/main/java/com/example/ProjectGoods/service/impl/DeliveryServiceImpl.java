@@ -1,9 +1,9 @@
-package com.example.ProjectGoods.service;
+package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.model.DeliveryAddress;
-import com.example.ProjectGoods.model.User;
 import com.example.ProjectGoods.repository.DeliveryRepository;
 import com.example.ProjectGoods.repository.UserRepository;
+import com.example.ProjectGoods.service.DeliveryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,9 +12,8 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class DeliveryServiceImpl implements DeliveryService{
+public class DeliveryServiceImpl implements DeliveryService {
     private DeliveryRepository deliveryRepository;
-    private UserRepository userRepository;
 
     @Override
     public DeliveryAddress create(DeliveryAddress deliveryAddress) {

@@ -1,4 +1,4 @@
-package com.example.ProjectGoods.service;
+package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
 import com.example.ProjectGoods.dto.GoodsDTO;
@@ -8,6 +8,7 @@ import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
 import com.example.ProjectGoods.repository.GoodRepository;
+import com.example.ProjectGoods.service.GoodService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 @AllArgsConstructor
 @Service
-public class GoodServiceImpl implements GoodService{
+public class GoodServiceImpl implements GoodService {
     private GoodRepository goodRepository;
     private CountryRepository countryRepository;
     private CategoryRepository categoryRepository;

@@ -3,8 +3,8 @@ package com.example.ProjectGoods.controller;
 import com.example.ProjectGoods.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.GoodService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -28,9 +28,10 @@ public class GoodController {
      *
      * @param id
      */
+
     @GetMapping("/{id}")
-    public GoodsDTO getGoodsDto(@PathVariable Long id) {
-        return goodService.getById(id);
+    public ResponseEntity<GoodsDTO> getGoodsDto(@PathVariable Long id) {
+        return ResponseEntity.ok(goodService.getById(id));
     }
 
     @GetMapping
