@@ -1,10 +1,11 @@
-package com.example.ProjectGoods.service;
+package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
-import com.example.ProjectGoods.dto.CategoryDto;
+import com.example.ProjectGoods.dto.CategoryDTO;
 import com.example.ProjectGoods.model.*;
 import com.example.ProjectGoods.repository.CategoryRepository;
 import com.example.ProjectGoods.repository.CountryRepository;
+import com.example.ProjectGoods.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class CategoryServiceImpl implements CategoryService {
     private AuthController authController;
 
     @Override
-    public List<Category> listAllCategory() {
-        return categoryRepository.findAll();
+    public List<CategoryDTO> listAllCategory() {
+        return mappingEntityToDtoList(categoryRepository.findAll());
     }
 
     @Override
@@ -53,10 +54,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto categoryToDto(Long categoryId) {
+    public CategoryDTO getCategoryById(Long categoryId) {
         Optional<Category> categoryCheck = categoryRepository.findById(categoryId);
         if(categoryCheck.isPresent()){
-            Category newCategory = new Category();
+            Category newCategory = categoryCheck.get();
             return mappingEntityToDto(newCategory);
         }
         else{
@@ -65,28 +66,52 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category dtoTo(CategoryDto categoryDto) {
-        return DtoToEntity(categoryDto);
+    public Category create(CategoryDTO categoryDto) {
+        Category category = mappingDtoToEntity(categoryDto);
+        category.setCreatedUser(authController.getUserName());
+        category.setCreatedDate(new Date(System.currentTimeMillis()));
+        return categoryRepository.save(category);
     }
 
-    private CategoryDto mappingEntityToDto(Category category){
-        CategoryDto categoryDto = new CategoryDto();
+    @Override
+    public Category update(CategoryDTO categoryDto) {
+        Category category = mappingDtoToEntity(categoryDto);
+        Optional<Category> oldCategory = categoryRepository.findById(category.getId());
+        if (oldCategory.isPresent()) {
+            category.setCreatedUser(oldCategory.get().getCreatedUser());
+            category.setCreatedDate(oldCategory.get().getCreatedDate());
+            updatingDateAndUser(category);
+            return categoryRepository.save(category);
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    private CategoryDTO mappingEntityToDto(Category category){
+        CategoryDTO categoryDto = new CategoryDTO();
         categoryDto.setId(category.getId());
         categoryDto.setNameCategory(category.getNameCategory());
         return categoryDto;
     }
-    private Category DtoToEntity(CategoryDto categoryDto){
+    private Category mappingDtoToEntity(CategoryDTO categoryDto){
         Category categoryNew = new Category();
         categoryNew.setId(categoryDto.getId());
         categoryNew.setNameCategory(categoryDto.getNameCategory());
-        categoryNew.setCreatedUser(authController.getUserName());
-        categoryNew.setCreatedDate(new Date(System.currentTimeMillis()));
-        return categoryRepository.save(categoryNew);
+        return categoryNew;
     }
-    public Category updatingDateAndUser(Category category) {
+    private List<CategoryDTO> mappingEntityToDtoList(List<Category> category){
+        List<CategoryDTO> printedList = new ArrayList<>();
+        int i = 0;
+        while(i < category.size()){
+            printedList.add(mappingEntityToDto(category.get(i)));
+            i++;
+        }
+        return printedList;
+    }
+    private Category updatingDateAndUser(Category category) {
         category.setUpdatedUser(authController.getUserName());
         category.setUpdatedDate(new Date(System.currentTimeMillis()));
         return categoryRepository.save(category);
     }
-
 }

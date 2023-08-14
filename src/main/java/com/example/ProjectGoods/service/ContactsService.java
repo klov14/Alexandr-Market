@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ContactsService {
-    ContactNumber create(ContactNumber contactNumber);
+    void create(ContactNumber contactNumber, Long userId);
     List<ContactNumber> listAllContacts();
     void deleteContactsById(Long id);
-    ContactNumber assignUserToContacts(Long contactsId, Long userId);
+//    ContactNumber assignUserToContacts(Long contactsId, Long userId);
     Optional<ContactNumber> getById(Long id);
 }

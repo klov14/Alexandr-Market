@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsDTO {
-    private Long id;
-    private String product;
-    private double buying;
-    private double resell;
-    private double weight;
+public class ContactNumberDTO {
+    Long id;
+    String mobile;
+    String telephone;
 }

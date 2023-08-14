@@ -13,9 +13,10 @@ import java.util.Optional;
 public class ContactsController {
     private ContactsService contactsService;
 
-    @PostMapping
-    public ContactNumber addContact(@RequestBody ContactNumber contactNumber){
-        return contactsService.create(contactNumber);
+
+    @PostMapping("/add-to-user/{userId}")
+    public void addContact(@RequestBody ContactNumber contactNumber, @PathVariable Long userId){
+        contactsService.create(contactNumber, userId);
     }
 
     @GetMapping("/{id}")
@@ -29,13 +30,8 @@ public class ContactsController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void deleteById(@PathVariable Long id){
         contactsService.deleteContactsById(id);
     }
 
-    @PutMapping("/{contactId}/user/{userId}")
-    public ContactNumber assignUserToContacts(@PathVariable Long contactId,
-                                              @PathVariable Long userId) {
-        return contactsService.assignUserToContacts(contactId, userId);
-    }
 }

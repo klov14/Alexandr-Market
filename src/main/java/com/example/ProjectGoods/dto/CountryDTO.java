@@ -1,11 +1,15 @@
 package com.example.ProjectGoods.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CountryDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CountryDTO {
     private Long id;
     private String code;
     private String nameOf;
