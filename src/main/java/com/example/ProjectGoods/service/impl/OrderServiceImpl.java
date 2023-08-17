@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO addGoodToOrder (Long orderId, double quantity, Long goodId) {
+    public Order addGoodToOrder (Long orderId, double quantity, Long goodId) {
         Optional<Order> orderCheck = orderRepository.findById(orderId);
         Optional<Good> goodCheck = goodRepository.findById(goodId);
         if (orderCheck.isPresent() && goodCheck.isPresent()) {
@@ -38,9 +38,9 @@ public class OrderServiceImpl implements OrderService {
             newBasket.setOrder(orderCheck.get());
             newBasket.setQuantity(quantity);
             orderCheck.get().getBasket().add(newBasket);
-            basketRepository.save(newBasket);
-            return mappingEntityToDtoOrder(orderCheck.get());
-
+             basketRepository.save(newBasket);
+            mappingEntityToDtoOrder(orderCheck.get()).getTotalPrice();
+            return orderRepository.save(orderCheck.get());
         }
         else {
             throw new EntityNotFoundException();
@@ -86,13 +86,21 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrderById(Long orderId) {
         orderRepository.deleteById(orderId);
     }
+//    private Order mappingDtoTOEntity(OrderDTO orderDTO){
+//        Order order = new Order();
+//        order.setTotalPrice(orderDTO.getTotalPrice());
+//        order.setBasket();
+//    }
 
     private OrderDTO mappingEntityToDtoOrder(Order order){
+        order.setTotalPrice(calculateTotalPrice(order));
+        orderRepository.save(order);
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
         orderDTO.setAddressMapping(order.getAddressMapping());
         orderDTO.setGoodsInBasket(fromBasketToGoodsForDeliveryList(order.getBasket()));
-        orderDTO.setTotalPrice(calculateTotalPrice(order));
+        orderDTO.setTotalPrice(order.getTotalPrice());
+
         return orderDTO;
     }
 

@@ -21,7 +21,7 @@ public class OrderController {
     }
 
     @PostMapping("{orderId}/quantity/{quantity}/add-good/{goodId}")
-    public OrderDTO addGoodToOrder(@PathVariable Long orderId, @PathVariable double quantity, @PathVariable Long goodId){
+    public Order addGoodToOrder(@PathVariable Long orderId, @PathVariable double quantity, @PathVariable Long goodId){
         return orderService.addGoodToOrder(orderId, quantity, goodId);}
 
     @GetMapping("/{orderId}")

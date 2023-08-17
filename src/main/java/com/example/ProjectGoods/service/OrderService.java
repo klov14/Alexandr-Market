@@ -10,7 +10,7 @@ public interface OrderService {
     Order createOrder(Order order);
     List<OrderDTO> listOrders();
     void deleteOrderById(Long orderId);
-    OrderDTO addGoodToOrder(Long orderId, double quantity, Long goodId);
+    Order addGoodToOrder(Long orderId, double quantity, Long goodId);
     OrderDTO getOrderById(Long orderId);
     OrderDTO assignAddressForDelivery(Long orderId, Long addressId);
 }
