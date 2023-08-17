@@ -1,4 +1,4 @@
-package com.example.ProjectGoods.dto;
+package com.example.ProjectGoods.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class CategoryDTO {
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private String nameCategory;
 }

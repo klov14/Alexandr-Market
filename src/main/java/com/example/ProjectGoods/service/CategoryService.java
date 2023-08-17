@@ -1,6 +1,6 @@
 package com.example.ProjectGoods.service;
 
-import com.example.ProjectGoods.dto.CategoryDTO;
+import com.example.ProjectGoods.model.dto.CategoryDTO;
 import com.example.ProjectGoods.model.*;
 
 import java.util.List;

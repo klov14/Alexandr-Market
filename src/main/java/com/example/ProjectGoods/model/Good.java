@@ -1,8 +1,10 @@
 package com.example.ProjectGoods.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,6 +42,7 @@ public class Good{
     @Column(name = "updated_date")
     private Date updatedDate;
 
+
     @ManyToOne
     @JoinColumn(name="country_id", referencedColumnName = "id")
     private Country countryMapping;
@@ -47,4 +50,8 @@ public class Good{
     @ManyToOne
     @JoinColumn(name="category_id", referencedColumnName = "id")
     private Category categoryMapping;
+
+    @OneToMany(mappedBy = "good")
+    @JsonIgnore
+    private List<Basket> basket;
 }

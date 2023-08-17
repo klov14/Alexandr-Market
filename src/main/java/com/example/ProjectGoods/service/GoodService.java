@@ -1,8 +1,7 @@
 package com.example.ProjectGoods.service;
 
-import com.example.ProjectGoods.dto.GoodsDTO;
+import com.example.ProjectGoods.model.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Good;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
-import com.example.ProjectGoods.dto.CountryDTO;
+import com.example.ProjectGoods.model.dto.CountryDTO;
 import com.example.ProjectGoods.model.*;
 import com.example.ProjectGoods.repository.CountryRepository;
 import com.example.ProjectGoods.service.CountryService;

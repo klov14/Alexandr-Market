@@ -1,4 +1,4 @@
-package com.example.ProjectGoods.dto;
+package com.example.ProjectGoods.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
