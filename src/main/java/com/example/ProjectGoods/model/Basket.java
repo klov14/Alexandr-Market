@@ -8,6 +8,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "basket")
+/**
+ intermidiate table, where data is added to the order table
+ **/
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
