@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.service.impl;
 
-import com.example.ProjectGoods.dto.ContactNumberDTO;
-import com.example.ProjectGoods.dto.UserDTO;
+import com.example.ProjectGoods.model.dto.ContactNumberDTO;
+import com.example.ProjectGoods.model.dto.UserDTO;
 import com.example.ProjectGoods.model.ContactNumber;
 import com.example.ProjectGoods.model.DeliveryAddress;
 import com.example.ProjectGoods.model.User;
@@ -49,12 +49,19 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException();
         }
     }
+
     @Override
     public User assignAddressToUser(Long addressId, Long userId) {
         Optional<DeliveryAddress> address = deliveryRepository.findById(addressId);
         Optional<User> user = userRepository.findById(userId);
         if (address.isPresent() && user.isPresent()) {
+            int count = 0;
+            for(int i=0; i < user.get().getAddressAvailable().size(); i++) {
+                user.get().getAddressAvailable().get(i).setActive(false);
+                count = i;
+            }
             user.get().getAddressAvailable().add(address.get());
+            user.get().getAddressAvailable().get(count+1).setActive(true);
             return userRepository.save(user.get());
         }
         else {
@@ -63,16 +70,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<DeliveryAddress> getAddressByUserId(Long userId) {
+    public List<DeliveryAddress> getAddressByUserId(Long userId) {
         Optional<User> userCheck= userRepository.findById(userId);
         if(userCheck.isPresent()){
-//            UserDTO userDto = new UserDTO();
-//            User user = userCheck.get();
-//            userDto.setId(user.getId());
-//            userDto.setFirstName(user.getFirstName());
-//            userDto.setLastName(user.getLastName());
-//            userDto.setEmail(user.getEmail());
-//            userDto.setAddressAvailable(user.getAddressAvailable());
             return userCheck.get().getAddressAvailable();
         }
         else{
@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
         userDto.setEmail(user.getEmail());
         return userDto;
     }
+
     private List<UserDTO> mappingEntityToDtoListUser (List<User> listOfUsers){
         List<UserDTO> printedDtoUsers = new ArrayList<>();
         for(User i : listOfUsers) {
@@ -110,4 +111,5 @@ public class UserServiceImpl implements UserService {
         }
         return printedDtoUsers;
     }
+
 }

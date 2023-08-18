@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -29,6 +31,13 @@ public class DeliveryAddress {
 
     @Column(name="city")
     private String city;
+
+    @Column(name="active")
+    private boolean active;
+
+    @OneToMany(mappedBy = "addressMapping")
+    @JsonIgnore
+    private List<Order> orderList = new ArrayList<>();
 
     @JsonIgnore
     @ManyToMany(mappedBy = "addressAvailable")

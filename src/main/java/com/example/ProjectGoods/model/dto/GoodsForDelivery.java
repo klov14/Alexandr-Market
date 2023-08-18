@@ -1,4 +1,4 @@
-package com.example.ProjectGoods.dto;
+package com.example.ProjectGoods.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsDTO {
-    private Long id;
+public class GoodsForDelivery {
     private String product;
-    private double buying;
     private double resell;
-    private double weight;
+    private double quantity;
+    private double priceForGoods;
 }

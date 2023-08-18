@@ -2,7 +2,7 @@ package com.example.ProjectGoods.controller;
 
 import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
-import com.example.ProjectGoods.dto.CountryDTO;
+import com.example.ProjectGoods.model.dto.CountryDTO;
 import com.example.ProjectGoods.service.CountryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

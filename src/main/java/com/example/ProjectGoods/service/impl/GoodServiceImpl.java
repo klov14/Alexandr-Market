@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
-import com.example.ProjectGoods.dto.GoodsDTO;
+import com.example.ProjectGoods.model.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
 import com.example.ProjectGoods.model.Good;
@@ -96,7 +96,6 @@ public class GoodServiceImpl implements GoodService {
         }
 
     }
-
 
 
 

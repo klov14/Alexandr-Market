@@ -1,7 +1,7 @@
 package com.example.ProjectGoods.controller;
 
-import com.example.ProjectGoods.dto.ContactNumberDTO;
-import com.example.ProjectGoods.dto.UserDTO;
+import com.example.ProjectGoods.model.dto.ContactNumberDTO;
+import com.example.ProjectGoods.model.dto.UserDTO;
 import com.example.ProjectGoods.model.DeliveryAddress;
 import com.example.ProjectGoods.model.User;
 import com.example.ProjectGoods.service.UserService;
@@ -33,7 +33,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/get-address/{userId}")
-    public Set<DeliveryAddress> printUserDtoWithAddress(@PathVariable Long userId){
+    public List<DeliveryAddress> printUserDtoWithAddress(@PathVariable Long userId){
         return userService.getAddressByUserId(userId);
     }
 
@@ -58,4 +58,5 @@ public class UserController {
                                     @PathVariable Long userId) {
         return userService.assignAddressToUser(addressId, userId);
     }
+
 }
