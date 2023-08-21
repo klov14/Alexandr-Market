@@ -8,11 +8,13 @@ import com.example.ProjectGoods.repository.CountryRepository;
 import com.example.ProjectGoods.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 @AllArgsConstructor
 @Service
+@Slf4j
 public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
     private CountryRepository countryRepository;
@@ -35,9 +37,11 @@ public class CategoryServiceImpl implements CategoryService {
         if (country.isPresent() && category.isPresent()) {
             category.get().getCountriesAvailable().add(country.get());
             updatingDateAndUser(category.get());
+            log.info("category "+ category.get().getNameCategory() +" is assigned to the country "+country.get().getNameOf());
             return categoryRepository.save(category.get());
         }
         else {
+            log.error("Id used does not exist!");
             throw new EntityNotFoundException();
         }
     }
