@@ -5,6 +5,7 @@ import com.example.ProjectGoods.model.Country;
 import com.example.ProjectGoods.model.dto.CountryDTO;
 import com.example.ProjectGoods.service.CountryService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +18,12 @@ public class CountryController {
     private CountryService countryService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Country addCountry (@RequestBody CountryDTO countryDto) {
         return countryService.create(countryDto);
     }
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Country update(@RequestBody CountryDTO countryDto){
         return countryService.update(countryDto);
     }
@@ -33,6 +36,7 @@ public class CountryController {
         return countryService.listAllCountry();
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void delete(@PathVariable Long id) {
         countryService.deleteCountryById(id);
     }

@@ -27,6 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategoryById(Long id) {
+        log.info("Category was deleted {}", id);
         categoryRepository.deleteById(id);
     }
 
@@ -37,11 +38,11 @@ public class CategoryServiceImpl implements CategoryService {
         if (country.isPresent() && category.isPresent()) {
             category.get().getCountriesAvailable().add(country.get());
             updatingDateAndUser(category.get());
-            log.info("category "+ category.get().getNameCategory() +" is assigned to the country "+country.get().getNameOf());
+            log.info("category {} is assigned to the country {}", category.get().getNameCategory(), country.get().getNameOf());
             return categoryRepository.save(category.get());
         }
         else {
-            log.error("Id used does not exist!");
+            log.error("Id used does not exist! CountryId = {}, categoryId = {}", countryId, categoryId);
             throw new EntityNotFoundException();
         }
     }
@@ -53,6 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
            return categoryNew.get().getCountriesAvailable();
         }
         else {
+            log.error("Id used does not exist CategoryId = {}", categoryId);
             throw new EntityNotFoundException();
       }
     }
@@ -74,6 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = mappingDtoToEntity(categoryDto);
         category.setCreatedUser(authController.getUserName());
         category.setCreatedDate(new Date(System.currentTimeMillis()));
+        log.info("A new category was created");
         return categoryRepository.save(category);
     }
 
@@ -85,9 +88,11 @@ public class CategoryServiceImpl implements CategoryService {
             category.setCreatedUser(oldCategory.get().getCreatedUser());
             category.setCreatedDate(oldCategory.get().getCreatedDate());
             updatingDateAndUser(category);
+            log.info("A category has been updated {}", category.getId());
             return categoryRepository.save(category);
         }
         else {
+            log.error("Id used does not exist CategoryId = {}", category.getId());
             throw new EntityNotFoundException();
         }
     }

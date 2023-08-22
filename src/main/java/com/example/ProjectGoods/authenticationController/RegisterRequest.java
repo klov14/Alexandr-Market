@@ -1,5 +1,6 @@
 package com.example.ProjectGoods.authenticationController;
 
+import com.example.ProjectGoods.model.Role;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,5 @@ public class RegisterRequest {
     @Pattern(regexp = "^.{3,}$",
              message = "Password is not long enough")
     private String password;
+    private Role role;
 }

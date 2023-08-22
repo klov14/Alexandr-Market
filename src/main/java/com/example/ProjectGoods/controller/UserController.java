@@ -6,6 +6,7 @@ import com.example.ProjectGoods.model.DeliveryAddress;
 import com.example.ProjectGoods.model.User;
 import com.example.ProjectGoods.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/get-address/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAnyAuthority('SELLER')")
     public List<DeliveryAddress> printUserDtoWithAddress(@PathVariable Long userId){
         return userService.getAddressByUserId(userId);
     }
@@ -43,6 +45,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/get-contacts/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAnyAuthority('SELLER')")
     public List<ContactNumberDTO> getAllNumbersFromUsersId(@PathVariable Long id){
         return userService.getAllContactsOfUser(id);
     }
@@ -54,6 +57,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/{userId}/address/{addressId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAnyAuthority('USER')")
     public User assignAddressToUser(@PathVariable Long addressId,
                                     @PathVariable Long userId) {
         return userService.assignAddressToUser(addressId, userId);

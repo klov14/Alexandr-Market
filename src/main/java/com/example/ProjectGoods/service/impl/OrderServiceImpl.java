@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
         Optional<User> user = userRepository.findByEmail(orderCheck.get().getActiveUser());
         if(orderCheck.isPresent() && addressCheck.isPresent() && user.isPresent()){
                 for(int i = 0; i < user.get().getAddressAvailable().size(); i++) {
-                    if(user.get().getAddressAvailable().get(i) == addressCheck.get()){
+                    if(user.get().getAddressAvailable().get(i).equals(addressCheck.get())){
                         orderCheck.get().setAddressMapping(addressCheck.get());
                         return mappingEntityToDtoOrder(orderRepository.save(orderCheck.get()));
                     }

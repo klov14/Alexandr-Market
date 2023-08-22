@@ -5,6 +5,7 @@ import com.example.ProjectGoods.model.Good;
 import com.example.ProjectGoods.service.GoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -14,11 +15,13 @@ import java.util.List;
 public class GoodController {
     private final GoodService goodService;
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAnyAuthority('SELLER')")
     public Good createGood(@RequestBody GoodsDTO goodDto) {
         return goodService.createGood(goodDto);
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasAnyAuthority('SELLER')")
     public Good update(@RequestBody GoodsDTO goodsDTO){
         return goodService.update(goodsDTO);
     }
@@ -40,6 +43,7 @@ public class GoodController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAnyAuthority('SELLER')")
     public void delete(@PathVariable Long id) {
         goodService.deleteById(id);
     }
@@ -51,6 +55,7 @@ public class GoodController {
      * @return
      */
     @PutMapping("/{goodsId}/country/{countryId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAnyAuthority('SELLER')")
     public Good assignCountryToGood(@PathVariable Long goodsId, @PathVariable Long countryId) {
         return goodService.addCountryToGood(goodsId, countryId);
     }
@@ -62,6 +67,7 @@ public class GoodController {
      * @return
      */
     @PutMapping("/{goodsId}/category/{categoryId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Good assignCategoryToGood(@PathVariable Long goodsId, @PathVariable Long categoryId) {
         return goodService.addCategoryToGood(goodsId, categoryId);
     }
