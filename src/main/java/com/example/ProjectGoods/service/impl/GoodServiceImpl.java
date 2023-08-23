@@ -1,6 +1,7 @@
 package com.example.ProjectGoods.service.impl;
 
 import com.example.ProjectGoods.authenticationController.AuthController;
+import com.example.ProjectGoods.exceptions.CustomAccessDeniedException;
 import com.example.ProjectGoods.model.dto.GoodsDTO;
 import com.example.ProjectGoods.model.Category;
 import com.example.ProjectGoods.model.Country;
@@ -11,6 +12,7 @@ import com.example.ProjectGoods.repository.GoodRepository;
 import com.example.ProjectGoods.service.GoodService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 @AllArgsConstructor
 @Service
+@Slf4j
 public class GoodServiceImpl implements GoodService {
     private GoodRepository goodRepository;
     private CountryRepository countryRepository;

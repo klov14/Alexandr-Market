@@ -20,6 +20,9 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractName(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
     public String generateToken(UserDetails userDetails){
         return generateToken(new HashMap<>(), userDetails);
     }

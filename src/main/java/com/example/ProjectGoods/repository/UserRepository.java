@@ -1,5 +1,6 @@
 package com.example.ProjectGoods.repository;
 
+import com.example.ProjectGoods.model.Role;
 import com.example.ProjectGoods.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

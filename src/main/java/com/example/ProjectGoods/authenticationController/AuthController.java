@@ -33,4 +33,15 @@ public class AuthController {
         String currentPrincipalName = authentication.getName();
         return currentPrincipalName;
     }
+
+    public boolean hasRequiredAuthoritiesAdminAndSeller() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().stream()
+                .anyMatch(authority -> "ADMIN".equals(authority.getAuthority()) || "SELLER".equals(authority.getAuthority()));
+    }
+    public boolean hasRequiredAuthoritiesAdminOnly () {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().stream()
+                .anyMatch(authority -> "ADMIN".equals(authority.getAuthority()));
+    }
 }
