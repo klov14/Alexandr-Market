@@ -40,12 +40,6 @@ public class GoodController {
         return goodService.update(goodsDTO);
     }
 
-    /**
-     * GET dto of the goods by ID
-     *
-     * @param id
-     */
-
     @GetMapping("/{id}")
     public ResponseEntity<GoodsDTO> getGoodsDto(@PathVariable Long id) {
         return ResponseEntity.ok(goodService.getById(id));
