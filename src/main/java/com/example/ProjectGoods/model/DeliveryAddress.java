@@ -37,7 +37,7 @@ public class DeliveryAddress {
 
     @OneToMany(mappedBy = "addressMapping")
     @JsonIgnore
-    private List<Order> orderList = new ArrayList<>();
+    private List<Order> orderList;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "addressAvailable")

@@ -74,7 +74,7 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "userMapping")
     @JsonIgnore
-    private List<ContactNumber> contactsSet = new ArrayList<>();
+    private List<ContactNumber> contactsSet;
 
     @ManyToMany
     @JoinTable(

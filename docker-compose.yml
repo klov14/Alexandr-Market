@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  application:
+    container_name: shop_back
+    image: shop
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/shop
+
+  postgres:
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: "shop"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
